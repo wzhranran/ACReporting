@@ -724,6 +724,8 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
     addStyle(wb, "Profile Score by Group", border_general, cols=c(1:14), rows = c(8:(7+PerNo)),gridExpand =T, stack = FALSE)
     addStyle(wb, "Profile Score by Group", border_head, cols=c(1:14), rows=c(6,7), gridExpand =T, stack = FALSE)
 
+    worksheetOrder(wb)<-c("Reading","Listening","Survey", "ItemAnalyses", "Scores", "ReportedScores", "Profile Score by Group",
+                          "SS_Reading", "SS_Listening")
     saveWorkbook(wb, file = paste0(CleanPath,"Scored",TestName,".xlsx"), overwrite = TRUE)
 
 
