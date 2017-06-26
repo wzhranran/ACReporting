@@ -382,7 +382,7 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
     write.csv(PL, paste(CleanPath,ItemPLsFile, ".csv", sep = ""), row.names = F)
   } else {
     ItemPLsFile <- paste(TestName,"_",Skill,"_PLs",sep = "")
-    PL<-ReadCSVFile(Cleaned, ItemPLsFile)
+    PL<-ReadCSVFile(CleanPath, ItemPLsFile)
     PL<-as.matrix(PL)
   }
 
