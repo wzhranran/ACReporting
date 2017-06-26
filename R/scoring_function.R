@@ -42,6 +42,7 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
   write.csv(response, paste0(OriginalPath,paste0(TestName, "_", Skill,".csv")),row.names = F)
 
   PerNo<-nrow(response) #number of examinees
+  ItemNo<-ncol(response)-n_demo
   RandomItemIDs<-colnames(response)[-c(1:n_demo)] #unique item ID
 
   if (PL_file==F)
@@ -49,7 +50,6 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
     #### Read in proficiency level file form ACTesting ####
     OriPLs<-ReadCSVFile(paste0(MainPath,"/"),paste(Language, Skill, ProfVersion_r, "levels", sep=" "))
     write.csv(OriPLs, paste0(CleanPath,paste(Language, Skill, ProfVersion_r, "levels", sep=" "),".csv"),row.names = F)
-    ItemNo<-nrow(OriPLs) # number of items
     PL<-matrix(,ncol=4, nrow=ItemNo)
     word<-ifelse(Skill=="Reading","read_","listen_")
     PL[,1]<-c(paste0(word,"0",1:9),paste0(word,10:ItemNo))
@@ -64,6 +64,7 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
   } else {
     ItemPLsFile <- paste(TestName,"_",Skill,"_PLs",sep = "")
     PL<-ReadCSVFile(CleanPath, ItemPLsFile)
+    PL<-as.matrix(PL)
   }
 
   #### Scoring and assign proficiency levels ####
