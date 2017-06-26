@@ -266,7 +266,7 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
 
     addStyle(wb, "SS_Reading", border_general, rows=3:(PerNo+2), cols=c(1:(n_demo+ItemNo+3+2*n_levels)), gridExpand =T, stack = FALSE)
     addStyle(wb, "SS_Reading", border_head, rows=c(1,2), cols=c(1:(n_demo+ItemNo+3+2*n_levels)), gridExpand = T, stack = FALSE)
-    conditionalFormat(wb, "SS_Reading", cols=c((n_demo+ItemNo+4):(n_demo+ItemNo+3+2*n_levels)), rows=3:(PerNo+2),
+    conditionalFormatting(wb, "SS_Reading", cols=c((n_demo+ItemNo+4):(n_demo+ItemNo+3+2*n_levels)), rows=3:(PerNo+2),
                       rule=">66.7", style=bold)
 
 
@@ -567,7 +567,7 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
 
     addStyle(wb, "SS_Listening", border_general, rows=3:(PerNo+2), cols=c(1:(n_demo+ItemNo+3+2*n_levels)), gridExpand =T, stack = FALSE)
     addStyle(wb, "SS_Listening", border_head, rows=c(1,2), cols=c(1:(n_demo+ItemNo+3+2*n_levels)), gridExpand = T, stack = FALSE)
-    conditionalFormat(wb, "SS_Listening", cols=c((n_demo+ItemNo+4):(n_demo+ItemNo+3+2*n_levels)), rows=3:(PerNo+2),
+    conditionalFormatting(wb, "SS_Listening", cols=c((n_demo+ItemNo+4):(n_demo+ItemNo+3+2*n_levels)), rows=3:(PerNo+2),
                       rule=">66.7", style=bold)
 
 
