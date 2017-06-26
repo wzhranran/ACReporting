@@ -321,7 +321,7 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
     # create the bounds table
     Level<-c(paste0("Sub-",ReportedLevels[1]),ReportedLevels)
     UpperBound_R<-round(seq(20,ItemNo,length=n_levels+1),digits = 0)
-    LowerBound_R<-c(0,UpperBound[1:n_levels]+1)
+    LowerBound_R<-c(0,UpperBound_R[1:n_levels]+1)
     bounds_R<-data.frame(Level, LowerBound_R, UpperBound_R)
     writeData(wb, "Scores", bounds_R, startCol = 1, startRow = 10+PerNo, rowNames = F, colNames = T)
     
@@ -589,7 +589,7 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
     # create the bounds table
     Level<-c(paste0("Sub-",ReportedLevels[1]),ReportedLevels)
     UpperBound_L<-round(seq(20,ItemNo,length=n_levels+1),digits = 0)
-    LowerBound_L<-c(0,UpperBound[1:n_levels]+1)
+    LowerBound_L<-c(0,UpperBound_L[1:n_levels]+1)
     bounds_L<-cbind(Level, LowerBound_R, UpperBound_R)
     writeData(wb, "Scores", bounds_R, startCol = 6, startRow = 10+PerNo, rowNames = F, colNames = T)
     
