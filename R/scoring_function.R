@@ -361,6 +361,7 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
   response<-ReadCSVFile(paste0(MainPath,"/"),paste0(TestName, "_", Skill))
   write.csv(response, paste0(CleanPath,paste0(TestName, "_", Skill,".csv")),row.names = F)
   write.csv(response, paste0(OriginalPath,paste0(TestName, "_", Skill,".csv")),row.names = F)
+  ItemNo<-ncol(response)-n_demo
   PerNo<-nrow(response) #number of examinees
   RandomItemIDs<-colnames(response)[-c(1:n_demo)] #unique item ID
 
@@ -369,7 +370,6 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
     #### Read in proficiency level file form ACTesting ####
     OriPLs<-ReadCSVFile(paste0(MainPath,"/"),paste(Language, Skill, ProfVersion_l, "levels", sep=" "))
     write.csv(OriPLs, paste0(CleanPath,paste(Language, Skill, ProfVersion_l, "levels", sep=" "),".csv"),row.names = F)
-    ItemNo<-nrow(OriPLs) # number of items
     PL<-matrix(,ncol=4, nrow=ItemNo)
     word<-ifelse(Skill=="Reading","read_","listen_")
     PL[,1]<-c(paste0(word,"0",1:9),paste0(word,10:ItemNo))
@@ -382,7 +382,8 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
     write.csv(PL, paste(CleanPath,ItemPLsFile, ".csv", sep = ""), row.names = F)
   } else {
     ItemPLsFile <- paste(TestName,"_",Skill,"_PLs",sep = "")
-    PL<-ReadCSVFile(Cleaned, ItemPLsFile)
+    PL<-ReadCSVFile(CleanPath, ItemPLsFile)
+    PL<-as.matrix(PL)
   }
 
   #### Scoring and assign proficiency levels ####
