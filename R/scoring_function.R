@@ -150,7 +150,7 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
     '[' <- function(...) base::'['(..., drop = FALSE)
 
     pl <- PL[PL[,4] == pls,1] # items with ProfLevel=pls
-    tmp <- response_pure[, colnames(response_pure) %in% pl] # responses belong to pls
+    tmp <- score[, colnames(response_pure) %in% pl] # responses belong to pls
     NumCor <- apply(tmp, 1, FUN = function(x) length(which (x == 1)))
     CorPcnt <- apply(tmp, 1, FUN = function(x) length(which(x == 1))/ncol(tmp)*100)
     CorPcnt <- round(CorPcnt,digits = 2)
@@ -467,7 +467,7 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
     '[' <- function(...) base::'['(..., drop = FALSE)
 
     pl <- PL[PL[,4] == pls,1] # items with ProfLevel=pls
-    tmp <- response_pure[, colnames(response_pure) %in% pl] # responses belong to pls
+    tmp <- score[, colnames(response_pure) %in% pl] # responses belong to pls
     NumCor <- apply(tmp, 1, FUN = function(x) length(which (x == 1)))
     CorPcnt <- apply(tmp, 1, FUN = function(x) length(which(x == 1))/ncol(tmp)*100)
     CorPcnt <- round(CorPcnt,digits = 2)
