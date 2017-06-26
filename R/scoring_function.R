@@ -11,12 +11,16 @@
 #' @param n_demo number of demographic variables, usually it's 6.
 #' @param PL_file logical. Default is FALSE, PL file get from Proficiency file getting from ACTesting. If TRUE, additional PL file is provided. Usually after IDR.
 #' After IDR, just change the last column of PL file, including changing proficiency level and change to DNS.
+#' @param keychange_r Default is NULL. If the reading key is changed from IDR, a list of item index and new keys should be here.
+#' The first element is item index, the rest are the keys. Each item with key change is an object in the list.
+#' @param keychange_l Default is NULL. If the listening key is changed from IDR, a list of item index and new keys should be here.
 #' @return Scores, proficiency level report, and simple score report
 #' @export
 #' @examples
-#' Scoring(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVerson_r, n_demo, PL_file=F)
+#' Scoring(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVerson_r, n_demo, PL_file=F,
+#' keychange_r=list(c(1,1,2), c(13,1,4)), keychange_l=NULL)
 
-Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVersion_r, n_demo=6, PL_file=F)
+Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVersion_r, n_demo=6, PL_file=F, keychange_r=NULL, keychange_l=NULL)
 {
   #### Reading ####
   Skill<-"Reading"
@@ -114,7 +118,16 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
 
   Omitted <- apply(response_pure, 1, FUN = function(x) length(which(x=="NA"))+length(which(is.na(x)))) # -1 is omitted in csv, however NA here
   TotalCor <- apply(response_pure, 1, FUN = function(x) length(which(x == 1)))
-  TotalCorPcnt <- apply(response_pure, 1, FUN = function(x) (length(which(x == 1)))/ItemNo*100)
+  score<-response_pure
+  if (length(keychange_r)!=0)
+  {
+    for (k in 1:length(keychange_r))
+    {
+      score[,keychange_r[[k]][1]]<-ifelse(response_pure[,keychange_r[[k]][1]] %in% keychange_r[[k]][-1],1,0)
+    }
+  }
+  TotalCor <- apply(score, 1, FUN = function(x) length(which(x == 1)))
+  TotalCorPcnt <- apply(score, 1, FUN = function(x) (length(which(x == 1)))/ItemNo*100)
   TotalCorPcnt <-round(TotalCorPcnt,digits=2)
 
   ## Subset dataframe by proficiency levels and counting Number Correct,
@@ -421,8 +434,16 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
   ## Reading or Listening data file.
 
   Omitted <- apply(response_pure, 1, FUN = function(x) length(which(is.na(x)))+length(which(x=="NA"))) # -1 is omitted in csv, however NA here
-  TotalCor <- apply(response_pure, 1, FUN = function(x) length(which(x == 1)))
-  TotalCorPcnt <- apply(response_pure, 1, FUN = function(x) (length(which(x == 1)))/ItemNo*100)
+  score<-response_pure
+  if (length(keychange_l)!=0)
+  {
+    for (k in 1:length(keychange_r))
+    {
+      score[,keychange_l[[k]][1]]<-ifelse(response_pure[,keychange_l[[k]][1]] %in% keychange_l[[k]][-1],1,0)
+    }
+  }
+  TotalCor <- apply(score, 1, FUN = function(x) length(which(x == 1)))
+  TotalCorPcnt <- apply(score, 1, FUN = function(x) (length(which(x == 1)))/ItemNo*100)
   TotalCorPcnt <-round(TotalCorPcnt,digits=2)
 
   ## Subset dataframe by proficiency levels and counting Number Correct,
