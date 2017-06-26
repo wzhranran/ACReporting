@@ -102,7 +102,7 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
   colnames(response)[-c(1:n_demo)] <- PL[,1]
   # Remove items which are marked as "DNS" as "Do not score" from calculations.
   if ("DNS" %in% as.character(PL[,4])){
-    pl <- PL[PL[,1] == "DNS",1] # name of DNS item
+    pl <- PL[PL[,4] == "DNS",1] # name of DNS item
     response_pure <- response[, -c(1:n_demo)] # response matrix without demographic data
     response_pure <- response_pure[, !(names(response_pure) %in% pl)]
     print(paste("Dropped from calculations - item(s):",
