@@ -2,10 +2,10 @@
 % Please edit documentation in R/idr_function.R
 \name{IDR}
 \alias{IDR}
-\title{A function to prepare for IDR, generate keycheck figures and DIF figures, generate DIF analysis CTT analysis and IRT analysis csv. 
+\title{A function to prepare for IDR, generate keycheck figures and DIF figures, generate DIF analysis CTT analysis and IRT analysis csv.
 Reading is always analyzed before Listening.}
 \usage{
-IDR(MainPath, TestName, n_demo = 6)
+IDR(MainPath, TestName, n_demo = 6, DIF = F)
 }
 \arguments{
 \item{MainPath}{The folder where the response files are stored in}
@@ -13,12 +13,15 @@ IDR(MainPath, TestName, n_demo = 6)
 \item{TestName}{Name of the test}
 
 \item{n_demo}{number of demographic variables, usually it's 6.}
+
+\item{DIF}{whether we are going to do DIF detection. The rule of thumb is each group should have more than 50 participants.
+Thus, the default is F.}
 }
 \value{
 Discriptive summary, dif results, CTT results and IRT results
 }
 \description{
-A function to prepare for IDR, generate keycheck figures and DIF figures, generate DIF analysis CTT analysis and IRT analysis csv. 
+A function to prepare for IDR, generate keycheck figures and DIF figures, generate DIF analysis CTT analysis and IRT analysis csv.
 Reading is always analyzed before Listening.
 }
 \examples{

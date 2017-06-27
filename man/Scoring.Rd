@@ -2,11 +2,12 @@
 % Please edit documentation in R/scoring_function.R
 \name{Scoring}
 \alias{Scoring}
-\title{A function to score the responses, compute percentage correct, and classify based on it. 
+\title{A function to score the responses, compute percentage correct, and classify based on it.
 Reading is always analyzed before Listening.}
 \usage{
 Scoring(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l,
-  ProfVersion_r, n_demo = 6, PL_file = F)
+  ProfVersion_r, n_demo = 6, PL_file = F, keychange_r = NULL,
+  keychange_l = NULL)
 }
 \arguments{
 \item{MainPath}{The folder where the response files are stored in}
@@ -27,14 +28,20 @@ Scoring(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l,
 
 \item{PL_file}{logical. Default is FALSE, PL file get from Proficiency file getting from ACTesting. If TRUE, additional PL file is provided. Usually after IDR.
 After IDR, just change the last column of PL file, including changing proficiency level and change to DNS.}
+
+\item{keychange_r}{Default is NULL. If the reading key is changed from IDR, a list of item index and new keys should be here.
+The first element is item index, the rest are the keys. Each item with key change is an object in the list.}
+
+\item{keychange_l}{Default is NULL. If the listening key is changed from IDR, a list of item index and new keys should be here.}
 }
 \value{
-Scores and proficiency level report, and simple score report
+Scores, proficiency level report, and simple score report
 }
 \description{
-A function to score the responses, compute percentage correct, and classify based on it. 
+A function to score the responses, compute percentage correct, and classify based on it.
 Reading is always analyzed before Listening.
 }
 \examples{
-Scoring(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVerson_r, n_demo, PL_file=F)
+Scoring(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVerson_r, n_demo, PL_file=F,
+keychange_r=list(c(1,1,2), c(13,1,4)), keychange_l=NULL)
 }
