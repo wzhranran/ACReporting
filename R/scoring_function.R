@@ -9,8 +9,8 @@
 #' @param ProfVersion_l The version of the proficiency level file downloaded from ACTesting for listening
 #' @param ProfVersion_r The version of the proficiency level file downloaded from ACTesting for reading
 #' @param n_demo number of demographic variables, usually it's 6.
-#' @param PL_file logical. Default is FALSE, PL file get from Proficiency file getting from ACTesting. If TRUE, additional PL file is provided. Usually after IDR.
-#' After IDR, just change the last column of PL file, including changing proficiency level and change to DNS.
+#' @param PL_file logical. Default is FALSE, PL file is generated from Proficiency file downloaded from ACTesting. If TRUE, additional PL file is provided, usually after IDR.
+#' After IDR, just change the last column of PL file, including changing proficiency level and changing to DNS.
 #' @param keychange_r Default is NULL. If the reading key is changed from IDR, a list of item index and new keys should be here.
 #' The first element is item index, the rest are the keys. Each item with key change is an object in the list.
 #' @param keychange_l Default is NULL. If the listening key is changed from IDR, a list of item index and new keys should be here.
@@ -20,8 +20,10 @@
 #' Scoring(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVerson_r, n_demo, PL_file=F,
 #' keychange_r=list(c(1,1,2), c(13,1,4)), keychange_l=NULL)
 
-Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVersion_r, n_demo=6, PL_file=F, keychange_r=NULL, keychange_l=NULL)
+Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVersion_r, n_demo=6, PL_file=F,
+                    keychange_r=NULL, keychange_l=NULL)
 {
+  library(openxlsx)
   #### Reading ####
   Skill<-"Reading"
   # Read in response file
@@ -223,7 +225,7 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
   '[' <- function(...) base::'['(..., drop = TRUE)
 
     #### Create Excel File ####
-    library(openxlsx)
+
     # Create style
     bold<-createStyle(textDecoration = "bold")
     border_general<-createStyle(border = "TopBottomLeftRight", borderStyle = "thin", halign = "left")

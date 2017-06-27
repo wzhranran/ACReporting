@@ -377,17 +377,17 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
   cor1<-cor2<-cor3<-cor4<-NULL
   for (j in 1:ItemNo)
   {
-    if (sum(score_matrix[,j])==PerNo){
-      cor1[j]<-"NaN"
+    if (sum(score_matrix[,j])==PerNo | sum(score_matrix[,j]==0)){
+      cor1[j]<-0
     } else cor1[j]<-biserial(sum_score-score_matrix[,j],score_matrix[,j])
-    if (sum(dist_1[,j])==0) {
-      cor2[j]<-"NaN"
+    if (sum(dist_1[,j])==PerNo | sum(dist_1[,j])==0) {
+      cor2[j]<-0
     } else cor2[j]<-biserial(sum_score,dist_1[,j])
-    if (sum(dist_2[,j])==0) {
-      cor3[j]<-"NaN"
+    if (sum(dist_2[,j])==PerNo | sum(dist_2[,j])==0) {
+      cor3[j]<-0
     } else cor3[j]<-biserial(sum_score,dist_2[,j])
-    if (sum(dist_3[,j])==0) {
-      cor4[j]<-"NaN"
+    if (sum(dist_3[,j])==PerNo | sum(dist_3[,j])==0) {
+      cor4[j]<-0
     } else cor4[j]<-biserial(sum_score,dist_3[,j])
   }
 
