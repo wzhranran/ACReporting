@@ -118,7 +118,6 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
   ## Reading or Listening data file.
 
   Omitted <- apply(response_pure, 1, FUN = function(x) length(which(x=="NA"))+length(which(is.na(x)))) # -1 is omitted in csv, however NA here
-  TotalCor <- apply(response_pure, 1, FUN = function(x) length(which(x == 1)))
   score<-response_pure
   if (length(keychange_r)!=0)
   {
@@ -127,6 +126,7 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
       score[,keychange_r[[k]][1]]<-ifelse(response_pure[,keychange_r[[k]][1]] %in% keychange_r[[k]][-1],1,0)
     }
   }
+  score[,which(PL[,4]=="DNS")]<-0
   TotalCor <- apply(score, 1, FUN = function(x) length(which(x == 1)))
   TotalCorPcnt <- apply(score, 1, FUN = function(x) (length(which(x == 1)))/ItemNo*100)
   TotalCorPcnt <-round(TotalCorPcnt,digits=2)
@@ -444,6 +444,7 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
       score[,keychange_l[[k]][1]]<-ifelse(response_pure[,keychange_l[[k]][1]] %in% keychange_l[[k]][-1],1,0)
     }
   }
+  score[,which(PL[,4]=="DNS")]<-0
   TotalCor <- apply(score, 1, FUN = function(x) length(which(x == 1)))
   TotalCorPcnt <- apply(score, 1, FUN = function(x) (length(which(x == 1)))/ItemNo*100)
   TotalCorPcnt <-round(TotalCorPcnt,digits=2)
@@ -714,18 +715,28 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
 
     # "Profile Score by Group"
     addWorksheet(wb,"Profile Score by Group")
-    for (j in 1:13)
+    for (j in c(1:7,9:13))
     {
-      v<-paste0("ReportedScores!", LETTERS[j], 1:(7+PerNo))
+      v<-paste0("ReportedScores!", LETTERS[j], 7:(7+PerNo))
       class(v)<-c(class(v), "formula")
-      writeData(wb, "Profile Score by Group", x=v, startCol = j, startRow = 1, rowNames = F, colNames=F)
+      writeData(wb, "Profile Score by Group", x=v, startCol = j, startRow = 7, rowNames = F, colNames=F)
     }
-    writeData(wb, "Profile Score by Group", dSorted[,6], startCol = "N", startRow = 8)
+    writeData(wb, "Profile Score by Group", dSorted[,6], startCol = "N", startRow = 8, colNames = T)
+    writeData(wb, "Profile Score by Group", paste(TestName,sep= ""), startCol = 1, startRow = 1, rowNames = F, colNames=F)          # write TestName in Cell A1
+    writeData(wb, "Profile Score by Group", paste("Language",Language,sep= ":"), startCol = 1, startRow = 2, rowNames = F, colNames=F)
+    writeData(wb, "Profile Score by Group", paste(AdminDate,sep= ""), startCol = 1, startRow = 3, rowNames = F, colNames=F)
+    writeData(wb, "Profile Score by Group", "Inheritage", startCol = "N", startRow = 7, rowNames = F, colNames=F)
+
+    mergeCells(wb, "Profile Score by Group", rows =6, cols= 4:5)
+    mergeCells(wb, "Profile Score by Group", rows =6, cols= 6:7)
+    mergeCells(wb, "Profile Score by Group", rows =6, cols= 9:11)
+    writeData(wb, "Profile Score by Group", t(c("AAPPL Scores", "","AC Scores", "","", "Number of Skill Subscores")),
+              startCol = "D", startRow = 6, colNames = F)
+
     addStyle(wb, "Profile Score by Group", border_general, cols=c(1:14), rows = c(8:(7+PerNo)),gridExpand =T, stack = FALSE)
     addStyle(wb, "Profile Score by Group", border_head, cols=c(1:14), rows=c(6,7), gridExpand =T, stack = FALSE)
 
-    worksheetOrder(wb)<-c("Reading","Listening","Survey", "ItemAnalyses", "Scores", "ReportedScores", "Profile Score by Group",
-                          "SS_Reading", "SS_Listening")
+    worksheetOrder(wb)<-c(1,6,3,4,5,8,9,2,7)
     saveWorkbook(wb, file = paste0(CleanPath,"Scored",TestName,".xlsx"), overwrite = TRUE)
 
 

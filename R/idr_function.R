@@ -17,6 +17,7 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
   library("psych")
   library("KernSmooth")
   library("difR")
+  library("eRm")
   result<-list(NULL,NULL)
   for (Skill in c("Reading","Listening"))
   {
@@ -24,6 +25,7 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
     ItemNo<-ncol(Data)-3-n_demo
     PerNo<-nrow(Data)
     response<-Data[,(n_demo+1):(n_demo+ItemNo)] # delete columns with demographic information and total score etc.
+    name<-colnames(response)
     #### Descriptive Statistics ####
     ctt_score<-ctt_Score(response, key=1)
     sum_score<-ctt_score$score
@@ -276,7 +278,7 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
       score_withna[which(response=="NA")]<-NA
       # DIF for gender
       mh_g<-difMH(Data=score_withna,group=Data$gender,focal.name = "F",correct=F)
-      name<-colnames(response)
+
       chisq_g<-mh_g$MH
       pvalue_g<-1-pchisq(chisq_g,df=1)
       #n<-
@@ -410,7 +412,7 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
 
   #### IRT Analysis ####
 
-  library("eRm")
+
   m<-RM(score_withna)
   p<-person.parameter(m)
   fit<-itemfit(p)
