@@ -3,5 +3,5 @@
 export(IDR)
 export(ReadCSVFile)
 export(Scoring)
-export(acICC)
+export(Tucker_equating)
 export(ctt_Score)

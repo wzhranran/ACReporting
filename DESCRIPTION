@@ -4,7 +4,7 @@ Version: 1.0
 Authors@R: person("Joy", "Wang", email = "wzhranran@gmail.com",
                   role = c("aut", "cre"))
 Description: This package is developed specifically to simplify test reporting procedure with ACTesting. It has three main functions. First, doing percentage correct-based examinee scoring, categorizing examinees into different language levels. Second, performing item quality analysis, generating CTT and IRT based item statistics and doing DIF analysis. Three, performing equating between different test forms.
-Depends: R (>= 3.3.3),equate,openxlsx
+Depends: R (>= 3.3.3), equate, openxlsx, psych, KernSmooth, difR, eRm
 License: GPL(>=2)
 URL: https://www.r-project.org
 BugReports: https://pkgname.bugtracker.url
