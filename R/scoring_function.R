@@ -1,6 +1,7 @@
-#' A function to score the responses, compute percentage correct, and classify based on it.
+#' @name Scoring
+#' @title A function to trim and score responses.
+#' @description  A function to score the responses, compute percentage correct, and classify based on it.
 #' Reading is always analyzed before Listening.
-#'
 #' @param MainPath The folder where the response files are stored in
 #' @param Language Testing language
 #' @param TestName Name of the test
@@ -14,8 +15,7 @@
 #' @param keychange_r Default is NULL. If the reading key is changed from IDR, a list of item index and new keys should be here.
 #' The first element is item index, the rest are the keys. Each item with key change is an object in the list.
 #' @param keychange_l Default is NULL. If the listening key is changed from IDR, a list of item index and new keys should be here.
-#' @return Scores, proficiency level report, and simple score report
-#' @export
+#' @return All the files are stored in the determined folders. The excel file is also generated.
 #' @examples
 #' Scoring(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVerson_r, n_demo, PL_file=F,
 #' keychange_r=list(c(1,1,2), c(13,1,4)), keychange_l=NULL)
@@ -742,5 +742,6 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
     saveWorkbook(wb, file = paste0(CleanPath,"Scored",TestName,".xlsx"), overwrite = TRUE)
 
 
-  list(PL,dSorted)
+  #result=list(PL=PL, ScoreTable=dSorted)
+  #result
 }

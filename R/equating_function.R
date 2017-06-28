@@ -1,6 +1,7 @@
-#' A function to do the Tucker linear equating. It produces ItemStats file (for both old test and new test) and linking table.
+#' @name Tucker_equating
+#' @title A function to do the Tucker linear equating.
+#' @description It produces ItemStats file (for both old test and new test) and equating table.
 #' Plots of liking item score and total score distribution are also developed.
-#'
 #' @param MainPath The folder where the response files are stored in
 #' @param Xpath Path of the old response file is stored in
 #' @param Ypath Path of the new response file is stored in
@@ -19,7 +20,7 @@
 #' @param keychange_Y_l List of key change for Y listening test.
 #' @param equate_coef List of Tucker linear equating coefficience. First element is intercept, second is slope.
 #' e.g. c_2015 equates 2016 test score to 2015. When using this function, just fill in proper equating coefficience.
-#' @return Discriptive summary, dif results, CTT results and IRT results
+#' @return Stats for both forms of test and the equating table.
 #' @export
 #' @examples
 #' Tucker_equating(MainPath, XPath, YPath, XName, YName, n_demoX=6, n_demoY=6,

@@ -1,16 +1,16 @@
-#' A function to prepare for IDR, generate keycheck figures and DIF figures, generate DIF analysis CTT analysis and IRT analysis csv.
+#' @name IDR
+#' @title A function to prepare for IDR.
+#' @description Generate keycheck figures and DIF figures, perform DIF analysis, CTT analysis and IRT analysis.
+#' All the plots and csv files are stored in the folders. The results stored in txt files in jMetrik are stored as output of this function.
 #' Reading is always analyzed before Listening.
-#'
 #' @param MainPath The folder where the response files are stored in
 #' @param TestName Name of the test
 #' @param n_demo number of demographic variables, usually it's 6.
 #' @param DIF whether we are going to do DIF detection. The rule of thumb is each group should have more than 50 participants.
 #' Thus, the default is F.
 #' @return Discriptive summary, dif results, CTT results and IRT results
-#' @export
 #' @examples
 #' IDR(MainPath, TestName, n_demo=6)
-
 
 IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
 {
@@ -467,9 +467,9 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
   irt_csv<-cbind(item_id,collection_id,Sample_size,Response_Rate,IRT_Infit,IRT_Outfit,IRT_Model,IRT_param,IRT_Standard_Error)
   write.csv(irt_csv,paste0(CsvPath,"items.csv"), row.names=F)
 
-  result[[which(c("Reading","Listening")==Skill)]]<-
-    list(describe<-sum_describe, DIF_gender<-dif_full_g, DIF_heritage<-dif_full_h, CTT<-ctt_txt, IRT<-irt_full)
+  #result[[which(c("Reading","Listening")==Skill)]]<-
+  #  list(describe<-sum_describe, DIF_gender<-dif_full_g, DIF_heritage<-dif_full_h, CTT<-ctt_txt, IRT<-irt_full)
   }
-  result
+  #result
 }
 
