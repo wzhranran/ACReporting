@@ -34,7 +34,7 @@
 
 Tucker_equating<-function(MainPath, XPath, YPath, XName, YName, n_demoX=6, n_demoY=6,
                           DNS_X_r=NULL, DNS_X_l=NULL, DNS_Y_r=NULL, DNS_Y_l=NULL,
-                          keychange_X_r=NULL, keychange_X_l=NULL, keychange_Y_r=NULL, kechange_Y_l=NULL,
+                          keychange_X_r=NULL, keychange_X_l=NULL, keychange_Y_r=NULL, keychange_Y_l=NULL,
                           equate_coef=list(c_2015=c(-2.282018,1.052596),
                                            c_2014=c(-1.848358,1.014028),
                                            c_2013=c(2.308507,0.9523797),
