@@ -1,14 +1,14 @@
 #' @name IDR
 #' @title A function to prepare for IDR.
-#' @description Generate keycheck figures and DIF figures, perform DIF analysis, CTT analysis and IRT analysis.
-#' All the plots and csv files are stored in the folders. The results stored in txt files in jMetrik are stored as output of this function.
+#' @description Generate keycheck figures and DIF figures, perform DIF analysis, CTT analysis, and IRT analysis.
+#' All the plots and csv files are stored in the folders. The results stored in txt files in jMetrik are stored as outputs of this function.
 #' Reading is always analyzed before Listening.
 #' @param MainPath The folder where the response files are stored in
 #' @param TestName Name of the test
 #' @param n_demo number of demographic variables, usually it's 6.
 #' @param DIF whether we are going to do DIF detection. The rule of thumb is each group should have more than 50 participants.
 #' Thus, the default is F.
-#' @return Discriptive summary, dif results, CTT results and IRT results
+#' @return Descriptive summary, dif results, CTT results and IRT results
 #' @examples
 #' IDR(MainPath, TestName, n_demo=6)
 
