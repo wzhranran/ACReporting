@@ -66,7 +66,8 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
 
     blue <- rgb(30,144,255,alpha=60,maxColorValue=255)
     red <- rgb(255, 0, 30, alpha=60, maxColorValue = 255)
-    grey <- rgb(0,0,0, alpha=60, maxColorValue = 255)
+    grey <- rgb(50,0,50, alpha=60, maxColorValue = 255)
+    green<- rgb(0,200,0, maxColorValue = 255)
     exp_score<-matrix(,nrow=ItemNo,ncol=51) # expected score
     for (j in 1:ItemNo)
     {
@@ -76,25 +77,25 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
                    range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
       exp_score[j,]<-fit$y
       plot(fit$x,fit$y,type="l", ylim=c(0,1),main=paste0("ICC for ",colnames(response)[j]),xlim=range(sum_score),
-           xlab="Total Correct",ylab="Probability")
+           xlab="Total Correct",ylab="Probability",lwd=2)
 
       fit<-locpoly(sum_score, dist_1[,j], drv = 0L, degree=1, kernel = "normal",
                    bandwidth=bw, gridsize = 51L, bwdisc = 51,
                    range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-      lines(fit$x,fit$y,ylim=c(0,1),xlim=range(sum_score),col="red",lty=2)
+      lines(fit$x,fit$y,ylim=c(0,1),xlim=range(sum_score),col="red",lty=2,lwd=2)
 
       fit<-locpoly(sum_score, dist_2[,j], drv = 0L, degree=1, kernel = "normal",
                    bandwidth=bw, gridsize = 51L, bwdisc = 51,
                    range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-      lines(fit$x,fit$y,ylim=c(0,1),xlim=range(sum_score),col="blue",lty=2)
+      lines(fit$x,fit$y,ylim=c(0,1),xlim=range(sum_score),col="blue",lty=3,lwd=2)
 
       fit<-locpoly(sum_score, dist_3[,j], drv = 0L, degree=1, kernel = "normal",
                    bandwidth=bw, gridsize = 51L, bwdisc = 51,
                    range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-      lines(fit$x,fit$y,ylim=c(0,1),xlim=range(sum_score),col="green",lty=2)
+      lines(fit$x,fit$y,ylim=c(0,1),xlim=range(sum_score),col=green,lty=4,lwd=2)
 
-      legend("topleft", legend=c("Key", "Distractor 1", "Distractor 2", "Distractor 3"),
-             lty=c(1,2,2,2), col=c("black", "red", "blue", "green"),bty="n")
+      #legend("topleft", legend=c("Key", "Distractor 1", "Distractor 2", "Distractor 3"),
+      #       lty=c(1,2,2,2), col=c("black", "red", "blue", green),bty="n")
       polygon(x=c(den$x,rev(den$x)),y=c(den$y*10,rep(0,length(den$x))),col=blue,border=NA)
       dev.off()
     }
@@ -131,14 +132,14 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
                      bandwidth=bw, gridsize = 51L, bwdisc = 51,
                      range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
         plot(fit$x,fit$y,type="l", ylim=c(0,1),main=paste0("Gender DIF for ",colnames(response)[j]),xlim=range(sum_score),
-             xlab="Total Correct",ylab="Probability")
+             xlab="Total Correct",ylab="Probability",lwd=2)
 
         fit<-locpoly(sum_score_m, score_matrix_m[,j], drv = 0L, degree=1, kernel = "normal",
                      bandwidth=bw, gridsize = 51L, bwdisc = 51,
                      range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-        lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red")
+        lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red",lwd=2)
 
-        legend("bottomright", legend=c("Focal Group (F)", "Reference Group (M)"),
+        legend("topleft", legend=c("Focal Group (F)", "Reference Group (M)"),
                lty=c(1,2), col=c("black", "red"),bty="n")
         polygon(x=c(den_m$x,rev(den_m$x)),y=c(den_m$y*length(ind_m)*20/PerNo,rep(0,length(den_m$x))),
                 col=red,border=NA, xlim=range(sum_score))
@@ -172,14 +173,14 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
                      bandwidth=bw, gridsize = 51L, bwdisc = 51,
                      range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
         plot(fit$x,fit$y,type="l", ylim=c(0,1),main=paste0("Gender DIF for ",colnames(response)[j]),xlim=range(sum_score),
-             xlab="Total Correct",ylab="Probability")
+             xlab="Total Correct",ylab="Probability",lwd=2)
 
         fit<-locpoly(sum_score_m, score_matrix_m[,j], drv = 0L, degree=1, kernel = "normal",
                      bandwidth=bw, gridsize = 51L, bwdisc = 51,
                      range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-        lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red")
+        lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red",lwd=2)
 
-        legend("bottomright", legend=c("Focal Group (F)", "Reference Group (M)"),
+        legend("topleft", legend=c("Focal Group (F)", "Reference Group (M)"),
                lty=c(1,2), col=c("black", "red"),bty="n")
 
         polygon(x=c(den_m$x,rev(den_m$x)),y=c(den_m$y*length(ind_m)*20/PerNo,rep(0,length(den_m$x))),
@@ -212,14 +213,14 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
                      bandwidth=bw, gridsize = 51L, bwdisc = 51,
                      range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
         plot(fit$x,fit$y,type="l", ylim=c(0,1),main=paste0("Heritage DIF for ",colnames(response)[j]),xlim=range(sum_score),
-             xlab="Total Correct",ylab="Probability")
+             xlab="Total Correct",ylab="Probability",lwd=2)
 
         fit<-locpoly(sum_score_n, score_matrix_n[,j], drv = 0L, degree=1, kernel = "normal",
                      bandwidth=bw, gridsize = 51L, bwdisc = 51,
                      range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-        lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red")
+        lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red",lwd=2)
 
-        legend("bottomright", legend=c("Focal Group (Y)", "Reference Group (N)"),
+        legend("topleft", legend=c("Focal Group (Y)", "Reference Group (N)"),
                lty=c(1,2), col=c("black", "red"),bty="n")
 
         polygon(x=c(den_y$x,rev(den_y$x)),y=c(den_y$y*length(ind_y)*20/PerNo,rep(0,length(den_y$x))),
@@ -253,14 +254,14 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
                      bandwidth=bw, gridsize = 51L, bwdisc = 51,
                      range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
         plot(fit$x,fit$y,type="l", ylim=c(0,1),main=paste0("Heritage DIF for ",colnames(response)[j]),xlim=range(sum_score),
-             xlab="Total Correct",ylab="Probability")
+             xlab="Total Correct",ylab="Probability",lwd=2)
 
         fit<-locpoly(sum_score_n, score_matrix_n[,j], drv = 0L, degree=1, kernel = "normal",
                      bandwidth=bw, gridsize = 51L, bwdisc = 51,
                      range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-        lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red")
+        lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red",lwd=2)
 
-        legend("bottomright", legend=c("Focal Group (Y)", "Reference Group (N)"),
+        legend("topleft", legend=c("Focal Group (Y)", "Reference Group (N)"),
                lty=c(1,2), col=c("black", "red"),bty="n")
 
         polygon(x=c(den_y$x,rev(den_y$x)),y=c(den_y$y*length(ind_y)*20/PerNo,rep(0,length(den_y$x))),

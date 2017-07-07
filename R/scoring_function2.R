@@ -20,7 +20,7 @@
 #' Scoring2(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVerson_r, n_demo, PL_file=F,
 #' keychange_r=list(c(1,1,2), c(13,1,4)), keychange_l=NULL)
 
-Scoring2 <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVersion_r, n_demo=6, PL_file=F,
+Scoring2<- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVersion_r, n_demo=6, PL_file=F,
                     keychange_r=NULL, keychange_l=NULL)
 {
   library(openxlsx)
