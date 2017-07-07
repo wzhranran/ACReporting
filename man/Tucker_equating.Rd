@@ -2,13 +2,12 @@
 % Please edit documentation in R/equating_function.R
 \name{Tucker_equating}
 \alias{Tucker_equating}
-\title{A function to do the Tucker linear equating. It produces ItemStats file (for both old test and new test) and linking table.
-Plots of liking item score and total score distribution are also developed.}
+\title{A function to do the Tucker linear equating.}
 \usage{
 Tucker_equating(MainPath, XPath, YPath, XName, YName, n_demoX = 6,
   n_demoY = 6, DNS_X_r = NULL, DNS_X_l = NULL, DNS_Y_r = NULL,
   DNS_Y_l = NULL, keychange_X_r = NULL, keychange_X_l = NULL,
-  keychange_Y_r = NULL, kechange_Y_l = NULL, equate_coef = list(c_2015 =
+  keychange_Y_r = NULL, keychange_Y_l = NULL, equate_coef = list(c_2015 =
   c(-2.282018, 1.052596), c_2014 = c(-1.848358, 1.014028), c_2013 = c(2.308507,
   0.9523797), c_2012 = c(3.089623, 0.9053153)))
 }
@@ -36,6 +35,8 @@ The first element is the item index, the rest are the keys.}
 
 \item{keychange_Y_r}{List of key change for Y reading test.}
 
+\item{keychange_Y_l}{List of key change for Y listening test.}
+
 \item{equate_coef}{List of Tucker linear equating coefficience. First element is intercept, second is slope.
 e.g. c_2015 equates 2016 test score to 2015. When using this function, just fill in proper equating coefficience.}
 
@@ -44,14 +45,12 @@ e.g. c_2015 equates 2016 test score to 2015. When using this function, just fill
 \item{Ypath}{Path of the new response file is stored in}
 
 \item{XName}{Name of the Y test}
-
-\item{keychange_Y_l}{List of key change for Y listening test.}
 }
 \value{
-Discriptive summary, dif results, CTT results and IRT results
+Stats for both forms of test and the equating table.
 }
 \description{
-A function to do the Tucker linear equating. It produces ItemStats file (for both old test and new test) and linking table.
+It produces ItemStats file (for both old test and new test) and equating table.
 Plots of liking item score and total score distribution are also developed.
 }
 \examples{

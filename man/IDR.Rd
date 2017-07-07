@@ -2,8 +2,7 @@
 % Please edit documentation in R/idr_function.R
 \name{IDR}
 \alias{IDR}
-\title{A function to prepare for IDR, generate keycheck figures and DIF figures, generate DIF analysis CTT analysis and IRT analysis csv.
-Reading is always analyzed before Listening.}
+\title{A function to prepare for IDR.}
 \usage{
 IDR(MainPath, TestName, n_demo = 6, DIF = F)
 }
@@ -18,10 +17,11 @@ IDR(MainPath, TestName, n_demo = 6, DIF = F)
 Thus, the default is F.}
 }
 \value{
-Discriptive summary, dif results, CTT results and IRT results
+Descriptive summary, dif results, CTT results and IRT results
 }
 \description{
-A function to prepare for IDR, generate keycheck figures and DIF figures, generate DIF analysis CTT analysis and IRT analysis csv.
+Generate keycheck figures and DIF figures, perform DIF analysis, CTT analysis, and IRT analysis.
+All the plots and csv files are stored in the folders. The results stored in txt files in jMetrik are stored as outputs of this function.
 Reading is always analyzed before Listening.
 }
 \examples{
