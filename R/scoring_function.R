@@ -20,8 +20,8 @@
 #' Scoring(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVerson_r, n_demo, PL_file=F,
 #' keychange_r=list(c(1,1,2), c(13,1,4)), keychange_l=NULL)
 
-Scoring<- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVersion_r, n_demo=6, PL_file=F,
-                    keychange_r=NULL, keychange_l=NULL)
+Scoring<-function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVersion_r, n_demo=6, PL_file=F,
+                  keychange_r=NULL, keychange_l=NULL)
 {
   library(openxlsx)
   #### Reading ####
@@ -62,7 +62,6 @@ Scoring<- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersi
     colnames(PL)<-c("ItemNo","Original_Prof_Level","Final_Prof_Level","Reported_Prof_Level")
     ItemPLsFile <- paste(TestName,"_",Skill,"_PLs",sep = "")
     write.csv(PL, paste0(CleanPath,ItemPLsFile, ".csv"), row.names = F)
-    write.csv(PL, paste0(OriginalPath,ItemPLsFile, ".csv"), row.names = F)
   } else {
     ItemPLsFile <- paste(TestName,"_",Skill,"_PLs",sep = "")
     PL<-ReadCSVFile(CleanPath, ItemPLsFile)
@@ -283,7 +282,7 @@ Scoring<- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersi
     addStyle(wb, "SS_Reading", border_general, rows=3:(PerNo+2), cols=c(1:(n_demo+ItemNo+3+2*n_levels)), gridExpand =T, stack = FALSE)
     addStyle(wb, "SS_Reading", border_head, rows=c(1,2), cols=c(1:(n_demo+ItemNo+3+2*n_levels)), gridExpand = T, stack = FALSE)
     conditionalFormatting(wb, "SS_Reading", cols=c((n_demo+ItemNo+4):(n_demo+ItemNo+3+2*n_levels)), rows=3:(PerNo+2),
-                      rule=">66.7", style=bold)
+                      rule=">66", style=bold)
 
 
     # "Survey"
@@ -594,7 +593,7 @@ Scoring<- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersi
     addStyle(wb, "SS_Listening", border_general, rows=3:(PerNo+2), cols=c(1:(n_demo+ItemNo+3+2*n_levels)), gridExpand =T, stack = FALSE)
     addStyle(wb, "SS_Listening", border_head, rows=c(1,2), cols=c(1:(n_demo+ItemNo+3+2*n_levels)), gridExpand = T, stack = FALSE)
     conditionalFormatting(wb, "SS_Listening", cols=c((n_demo+ItemNo+4):(n_demo+ItemNo+3+2*n_levels)), rows=3:(PerNo+2),
-                      rule=">66.7", style=bold)
+                      rule=">66", style=bold)
 
 
     # "ItemAnalyses"
