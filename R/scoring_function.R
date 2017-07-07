@@ -20,7 +20,7 @@
 #' Scoring(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVerson_r, n_demo, PL_file=F,
 #' keychange_r=list(c(1,1,2), c(13,1,4)), keychange_l=NULL)
 
-Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVersion_r, n_demo=6, PL_file=F,
+Scoring<- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVersion_r, n_demo=6, PL_file=F,
                     keychange_r=NULL, keychange_l=NULL)
 {
   library(openxlsx)
@@ -29,18 +29,18 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
   # Read in response file
   response<-ReadCSVFile(paste0(MainPath,"/"),paste0(TestName, "_", Skill))
   # Put response file in Data/clean and Data/original
-  CleanPath<-file.path(MainPath,"Data/clean/")
+  CleanPath<-paste0(MainPath,"/Data/clean/")
   if (file.exists(CleanPath)==F)
   {
-    if (file.exists(file.path(MainPath,"Data/"))==F)
+    if (file.exists(paste0(MainPath,"/Data/"))==F)
     {
-      dir.create(file.path(MainPath,"Data/"))
+      dir.create(paste0(MainPath,"/Data/"))
       dir.create(CleanPath)
     } else dir.create(CleanPath)
   }
   write.csv(response, paste0(CleanPath,paste0(TestName, "_", Skill,".csv")),row.names = F)
-  OriginalPath<-file.path(MainPath,"Data/original/")
-  if (file.exists(OriginalPath)==F) dir.create(file.path(OriginalPath))
+  OriginalPath<-paste0(MainPath,"/Data/original/")
+  if (file.exists(OriginalPath)==F) dir.create(OriginalPath)
   write.csv(response, paste0(OriginalPath,paste0(TestName, "_", Skill,".csv")),row.names = F)
 
   PerNo<-nrow(response) #number of examinees
@@ -208,15 +208,15 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
   dSorted <- d[with(d, order(d$lastName, d$firstName,d$examineeID)),]
 
   ## write to Scores folder
-  ScoreFile<-paste(TestName,"_",Skill,"_Mastery",sep = "")
-  ScorePath<-file.path(MainPath,"Scores/")
+  ScoreFile<-paste0(TestName,"_",Skill,"_Mastery")
+  ScorePath<-paste0(MainPath,"/Scores/")
   if (file.exists(ScorePath)==F) dir.create(ScorePath)
   write.csv(dSorted, paste(ScorePath,ScoreFile, ".csv", sep = ""),
             row.names = FALSE)
 
   ## Remove too many omits and repeated examinees
   Cleaned<-dSorted[!dSorted$Omitted>round(ItemNo/4*3,0),] # removing individuals missing or omited more than 3/4 of questions
-  jMetrikPath<-file.path(MainPath,"Data/jMetrik/")
+  jMetrikPath<-paste0(MainPath,"/Data/jMetrik/")
   if (file.exists(jMetrikPath)==F) dir.create(jMetrikPath)
   write.csv(Cleaned[,1:(n_demo+ItemNo+3)], paste(jMetrikPath,TestName,"_",Skill,"_jMetrik.csv",sep=""), row.names = FALSE)    # write the cleaned and combined file into a csv file
   # demographic information + responses + omitted, total correct, total correct proportion
@@ -291,8 +291,8 @@ Scoring <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVers
     survey<-read.csv(paste0(MainPath,"/",TestName,"_survey.csv"),
                      header = TRUE, row.names = NULL,
                      flush = TRUE, fill = TRUE)
-    SurveyPath<-file.path(MainPath,"Data/survey/")
-    if (file.exists(SurveyPath)==F) dir.create(file.path(SurveyPath))
+    SurveyPath<-paste0(MainPath,"/Data/survey/")
+    if (file.exists(SurveyPath)==F) dir.create(SurveyPath)
     write.csv(survey,paste0(SurveyPath,TestName,"_survey.csv"),row.names = F)
 
     survey <- survey[with(survey, order(survey$Name, survey$Examinee_Key)),]
