@@ -1,4 +1,4 @@
-#' @name Scoring
+#' @name Scoring2
 #' @title A function to trim and score responses.
 #' @description  A function to score the responses, compute percentage correct, and classify based on it.
 #' Reading is always analyzed before Listening.
@@ -17,7 +17,7 @@
 #' @param keychange_l The default is NULL. If the listening key is changed from IDR, a list of item index and new keys should be here.
 #' @return All the files are stored in the determined folders. The excel file is also generated.
 #' @examples
-#' Scoring(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVerson_r, n_demo, PL_file=F,
+#' Scoring2(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVerson_r, n_demo, PL_file=F,
 #' keychange_r=list(c(1,1,2), c(13,1,4)), keychange_l=NULL)
 
 Scoring2 <- function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersion_l, ProfVersion_r, n_demo=6, PL_file=F,
