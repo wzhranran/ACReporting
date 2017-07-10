@@ -156,7 +156,7 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
         {
           if (file.exists(paste0(MainPath, "/",Skill))==F)
           {
-            dir.create(paste0(MainPath,"/", Skill,"/")))
+            dir.create(paste0(MainPath,"/", Skill,"/"))
             dir.create(paste0(MainPath, "/", Skill, "/DIF/"))
             dir.create(DifPath_g2)
           } else {
