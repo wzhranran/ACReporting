@@ -46,12 +46,12 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
     bw<-den$bw
     #### Key Check ####
     # create folder to store key check plots
-    KeycheckPath<-file.path(MainPath, "UploadFiles", Skill, "keycheck/")
+    KeycheckPath<-paste0(MainPath, "/UploadFiles/", Skill, "/keycheck/")
     if (file.exists(KeycheckPath)==F)
     {
-      if (file.exists(file.path(MainPath,"UploadFiles/"))==F)
+      if (file.exists(paste0(MainPath,"/UploadFiles/"))==F)
       {
-        dir.create(file.path(MainPath,"UploadFiles/"))
+        dir.create(paste0(MainPath,"/UploadFiles/"))
         dir.create(paste0(MainPath,"/UploadFiles/",Skill,"/"))
         dir.create(KeycheckPath)
       } else {
@@ -113,12 +113,12 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
       score_matrix_m<-score_matrix[ind_m,]
       score_matrix_f<-score_matrix[-ind_m,]
 
-      DifPath_g1<-file.path(MainPath, "UploadFiles", Skill, "dif/gender/") # in upload file
+      DifPath_g1<-paste0(MainPath, "/UploadFiles/", Skill, "/dif/gender/") # in upload file
       if (file.exists(DifPath_g1)==F)
       {
-        if (file.exists(file.path(MainPath, "UploadFiles", Skill, "dif/"))==F)
+        if (file.exists(paste0(MainPath, "/UploadFiles/", Skill, "/dif/"))==F)
         {
-          dir.create(file.path(MainPath, "UploadFiles", Skill, "dif/"))
+          dir.create(paste0(MainPath, "/UploadFiles/", Skill, "/dif/"))
           dir.create(DifPath_g1)
         } else dir.create(DifPath_g1)
       }
@@ -149,18 +149,18 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
         dev.off()
       }
 
-      DifPath_g2<-file.path(MainPath, Skill, "DIF/gender/") # in Reading or Listening file
+      DifPath_g2<-paste0(MainPath, "/", Skill, "/DIF/gender/") # in Reading or Listening file
       if (file.exists(DifPath_g2)==F)
       {
-        if (file.exists(file.path(MainPath, Skill, "DIF/"))==F)
+        if (file.exists(paste0(MainPath, "/", Skill, "/DIF/"))==F)
         {
-          if (file.exists(file.path(MainPath, Skill))==F)
+          if (file.exists(paste0(MainPath, "/",Skill))==F)
           {
-            dir.create(file.path(MainPath,paste0(Skill,"/")))
-            dir.create(file.path(MainPath, Skill, "DIF/"))
+            dir.create(paste0(MainPath,"/", Skill,"/")))
+            dir.create(paste0(MainPath, "/", Skill, "/DIF/"))
             dir.create(DifPath_g2)
           } else {
-            dir.create(file.path(MainPath, Skill, "DIF/"))
+            dir.create(paste0(MainPath, "/", Skill, "/DIF/"))
             dir.create(DifPath_g2)
           }
         } else dir.create(DifPath_g2)
@@ -198,7 +198,7 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
       score_matrix_y<-score_matrix[ind_y,]
       score_matrix_n<-score_matrix[-ind_y,]
 
-      DifPath_h1<-file.path(MainPath, "UploadFiles", Skill, "dif/heritage/")
+      DifPath_h1<-paste0(MainPath, "/UploadFiles/", Skill, "/dif/heritage/")
       if (file.exists(DifPath_h1)==F)
       {
         dir.create(DifPath_h1)
@@ -230,18 +230,18 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
         dev.off()
       }
 
-      DifPath_h2<-file.path(MainPath, Skill, "DIF/heritage_t/") # in Reading or Listening file
+      DifPath_h2<-paste0(MainPath, "/", Skill, "/DIF/heritage_t/") # in Reading or Listening file
       if (file.exists(DifPath_h2)==F)
       {
-        if (file.exists(file.path(MainPath, Skill, "DIF/"))==F)
+        if (file.exists(paste0(MainPath, "/", Skill, "/DIF/"))==F)
         {
-          if (file.exists(file.path(MainPath, Skill))==F)
+          if (file.exists(paste0(MainPath, "/", Skill))==F)
           {
-            dir.create(file.path(MainPath,paste0(Skill,"/")))
-            dir.create(file.path(MainPath, Skill, "DIF/"))
+            dir.create(paste0(MainPath,"/", Skill,"/"))
+            dir.create(paste0(MainPath, "/", Skill, "/DIF/"))
             dir.create(DifPath_h2)
           } else {
-            dir.create(file.path(MainPath, Skill, "DIF/"))
+            dir.create(paste0(MainPath, "/", Skill, "/DIF/"))
             dir.create(DifPath_h2)
           }
         } else dir.create(DifPath_h2)
@@ -358,7 +358,7 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
       Group_1_Label<-rep(c("female","heritage"))
       Group_2_Label<-rep(c("male","non-heritage"))
       dif_csv<-cbind(item_id, collection_id, Type, Value, Group_1_Label, Group_1_Value, Group_2_Label, Group_2_Value)
-      CsvPath<-file.path(MainPath,"UploadFiles",Skill,"csv/")
+      CsvPath<-paste0(MainPath,"/UploadFiles/",Skill,"/csv/")
       if (file.exists(CsvPath)==F)
         dir.create(CsvPath)
       write.csv(dif_csv, paste0(CsvPath, "diffs.csv"),row.names = F)
@@ -453,7 +453,7 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
 
   # save to Reading or Listening file
   irt_full<-cbind(name,model,ncat,group,extreme,bparam,se,wms,stdwms,ums,stdums)
-  IrtPath<-file.path(MainPath, Skill, "IRT/") # in Reading or Listening file
+  IrtPath<-paste0(MainPath, "/", Skill, "/IRT/") # in Reading or Listening file
   if (file.exists(IrtPath)==F) dir.create(IrtPath)
   write.csv(irt_full,paste0(IrtPath,Skill,"_IRT_Param.csv"),row.names = F)
 
