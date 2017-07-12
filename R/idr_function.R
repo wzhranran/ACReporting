@@ -139,8 +139,8 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
                      range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
         lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red",lwd=2)
 
-        legend("topleft", legend=c("Focal Group (F)", "Reference Group (M)"),
-               lty=c(1,2), col=c("black", "red"),bty="n")
+        #legend("topleft", legend=c("Focal Group (F)", "Reference Group (M)"),
+        #       lty=c(1,2), col=c("black", "red"),bty="n")
         polygon(x=c(den_m$x,rev(den_m$x)),y=c(den_m$y*length(ind_m)*20/PerNo,rep(0,length(den_m$x))),
                 col=red,border=NA, xlim=range(sum_score))
         polygon(x=c(den_f$x,rev(den_f$x)),y=c(den_f$y*(PerNo-length(ind_m))*20/PerNo,rep(0,length(den_f$x))),
@@ -180,8 +180,8 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
                      range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
         lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red",lwd=2)
 
-        legend("topleft", legend=c("Focal Group (F)", "Reference Group (M)"),
-               lty=c(1,2), col=c("black", "red"),bty="n")
+        #legend("topleft", legend=c("Focal Group (F)", "Reference Group (M)"),
+        #       lty=c(1,2), col=c("black", "red"),bty="n")
 
         polygon(x=c(den_m$x,rev(den_m$x)),y=c(den_m$y*length(ind_m)*20/PerNo,rep(0,length(den_m$x))),
                 col=red,border=NA, xlim=range(sum_score))
@@ -220,8 +220,8 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
                      range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
         lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red",lwd=2)
 
-        legend("topleft", legend=c("Focal Group (Y)", "Reference Group (N)"),
-               lty=c(1,2), col=c("black", "red"),bty="n")
+        #legend("topleft", legend=c("Focal Group (Y)", "Reference Group (N)"),
+        #       lty=c(1,2), col=c("black", "red"),bty="n")
 
         polygon(x=c(den_y$x,rev(den_y$x)),y=c(den_y$y*length(ind_y)*20/PerNo,rep(0,length(den_y$x))),
                 col=red,border=NA, xlim=range(sum_score))
@@ -261,8 +261,8 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
                      range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
         lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red",lwd=2)
 
-        legend("topleft", legend=c("Focal Group (Y)", "Reference Group (N)"),
-               lty=c(1,2), col=c("black", "red"),bty="n")
+        #legend("topleft", legend=c("Focal Group (Y)", "Reference Group (N)"),
+        #       lty=c(1,2), col=c("black", "red"),bty="n")
 
         polygon(x=c(den_y$x,rev(den_y$x)),y=c(den_y$y*length(ind_y)*20/PerNo,rep(0,length(den_y$x))),
                 col=red,border=NA, xlim=range(sum_score))
