@@ -76,8 +76,8 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
                    bandwidth=bw, gridsize = 51L, bwdisc = 51,
                    range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
       exp_score[j,]<-fit$y
-      plot(fit$x,fit$y,type="l", ylim=c(0,1),main=paste0("ICC for ",colnames(response)[j]),xlim=range(sum_score),
-           xlab="Total Correct",ylab="Probability",lwd=2)
+      plot(fit$x,fit$y,type="l", ylim=c(0,1), #main=paste0("ICC for ",colnames(response)[j]),
+           xlim=range(sum_score), xlab="Total Correct",ylab="Probability",lwd=2)
 
       fit<-locpoly(sum_score, dist_1[,j], drv = 0L, degree=1, kernel = "normal",
                    bandwidth=bw, gridsize = 51L, bwdisc = 51,
@@ -131,8 +131,8 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
         fit<-locpoly(sum_score_f, score_matrix_f[,j], drv = 0L, degree=1, kernel = "normal",
                      bandwidth=bw, gridsize = 51L, bwdisc = 51,
                      range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-        plot(fit$x,fit$y,type="l", ylim=c(0,1),main=paste0("Gender DIF for ",colnames(response)[j]),xlim=range(sum_score),
-             xlab="Total Correct",ylab="Probability",lwd=2)
+        plot(fit$x,fit$y,type="l", ylim=c(0,1), #main=paste0("Gender DIF for ",colnames(response)[j]),
+             xlim=range(sum_score), xlab="Total Correct",ylab="Probability",lwd=2)
 
         fit<-locpoly(sum_score_m, score_matrix_m[,j], drv = 0L, degree=1, kernel = "normal",
                      bandwidth=bw, gridsize = 51L, bwdisc = 51,
@@ -172,8 +172,8 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
         fit<-locpoly(sum_score_f, score_matrix_f[,j], drv = 0L, degree=1, kernel = "normal",
                      bandwidth=bw, gridsize = 51L, bwdisc = 51,
                      range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-        plot(fit$x,fit$y,type="l", ylim=c(0,1),main=paste0("Gender DIF for ",colnames(response)[j]),xlim=range(sum_score),
-             xlab="Total Correct",ylab="Probability",lwd=2)
+        plot(fit$x,fit$y,type="l", ylim=c(0,1), #main=paste0("Gender DIF for ",colnames(response)[j]),
+             xlim=range(sum_score), xlab="Total Correct",ylab="Probability",lwd=2)
 
         fit<-locpoly(sum_score_m, score_matrix_m[,j], drv = 0L, degree=1, kernel = "normal",
                      bandwidth=bw, gridsize = 51L, bwdisc = 51,
@@ -212,8 +212,8 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
         fit<-locpoly(sum_score_y, score_matrix_y[,j], drv = 0L, degree=1, kernel = "normal",
                      bandwidth=bw, gridsize = 51L, bwdisc = 51,
                      range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-        plot(fit$x,fit$y,type="l", ylim=c(0,1),main=paste0("Heritage DIF for ",colnames(response)[j]),xlim=range(sum_score),
-             xlab="Total Correct",ylab="Probability",lwd=2)
+        plot(fit$x,fit$y,type="l", ylim=c(0,1), #main=paste0("Heritage DIF for ", colnames(response)[j]),
+             xlim=range(sum_score), xlab="Total Correct",ylab="Probability",lwd=2)
 
         fit<-locpoly(sum_score_n, score_matrix_n[,j], drv = 0L, degree=1, kernel = "normal",
                      bandwidth=bw, gridsize = 51L, bwdisc = 51,
@@ -253,8 +253,8 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
         fit<-locpoly(sum_score_y, score_matrix_y[,j], drv = 0L, degree=1, kernel = "normal",
                      bandwidth=bw, gridsize = 51L, bwdisc = 51,
                      range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-        plot(fit$x,fit$y,type="l", ylim=c(0,1),main=paste0("Heritage DIF for ",colnames(response)[j]),xlim=range(sum_score),
-             xlab="Total Correct",ylab="Probability",lwd=2)
+        plot(fit$x,fit$y,type="l", ylim=c(0,1), #main=paste0("Heritage DIF for ",colnames(response)[j]),
+             xlim=range(sum_score), xlab="Total Correct",ylab="Probability",lwd=2)
 
         fit<-locpoly(sum_score_n, score_matrix_n[,j], drv = 0L, degree=1, kernel = "normal",
                      bandwidth=bw, gridsize = 51L, bwdisc = 51,
