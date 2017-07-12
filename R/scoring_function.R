@@ -526,7 +526,6 @@ Scoring<-function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersio
 
   ## write to Scores folder
   ScoreFile<-paste(TestName,"_",Skill,"_Mastery",sep = "")
-  if (file.exists(ScorePath)==F) dir.create(ScorePath)
   write.csv(dSorted, paste(ScorePath,ScoreFile, ".csv", sep = ""),
             row.names = FALSE)
 

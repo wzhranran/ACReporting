@@ -360,7 +360,9 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
       dif_csv<-cbind(item_id, collection_id, Type, Value, Group_1_Label, Group_1_Value, Group_2_Label, Group_2_Value)
       CsvPath<-paste0(MainPath,"/UploadFiles/",Skill,"/csv/")
       if (file.exists(CsvPath)==F)
+      {
         dir.create(CsvPath)
+      }
       write.csv(dif_csv, paste0(CsvPath, "diffs.csv"),row.names = F)
 
     }
@@ -454,7 +456,10 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
   # save to Reading or Listening file
   irt_full<-cbind(name,model,ncat,group,extreme,bparam,se,wms,stdwms,ums,stdums)
   IrtPath<-paste0(MainPath, "/", Skill, "/IRT/") # in Reading or Listening file
-  if (file.exists(IrtPath)==F) dir.create(IrtPath)
+  if (file.exists(IrtPath)==F) 
+    {
+    dir.create(IrtPath)
+    }
   write.csv(irt_full,paste0(IrtPath,Skill,"_IRT_Param.csv"),row.names = F)
 
   # save to Uploads/csv file
