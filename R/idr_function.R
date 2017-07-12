@@ -380,7 +380,7 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
   cor1<-cor2<-cor3<-cor4<-NULL
   for (j in 1:ItemNo)
   {
-    if (sum(score_matrix[,j])==PerNo | sum(score_matrix[,j]==0)){
+    if (sum(score_matrix[,j])==PerNo | sum(score_matrix[,j])==0){
       cor1[j]<-0
     } else cor1[j]<-biserial(sum_score-score_matrix[,j],score_matrix[,j])
     if (sum(dist_1[,j])==PerNo | sum(dist_1[,j])==0) {
