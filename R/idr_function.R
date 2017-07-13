@@ -470,7 +470,7 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
   IRT_Model<-rep("1PL",ItemNo)
   IRT_param<-bparam
   IRT_Standard_Error<-se
-  irt_csv<-cbind(item_id,collection_id,Sample_size,Response_Rate,IRT_Infit,IRT_Outfit,IRT_Model,IRT_param,IRT_Standard_Error)
+  irt_csv<-cbind(name,rep(TestName,ItemNo),Sample_size,Response_Rate,IRT_Infit,IRT_Outfit,IRT_Model,IRT_param,IRT_Standard_Error)
   write.csv(irt_csv,paste0(CsvPath,"items.csv"), row.names=F)
 
   #result[[which(c("Reading","Listening")==Skill)]]<-
