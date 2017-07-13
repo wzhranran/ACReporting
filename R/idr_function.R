@@ -102,269 +102,7 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
 
     score_withna<-score_matrix
     score_withna[which(response=="NA")]<-NA
-    if (DIF)
-    {
-      #### DIF Detection Figures ####
-      #### gender ####
-      ind_m<-which(Data$gender=="M") # index for male
-      sum_score_m<-sum_score[ind_m]
-      sum_score_f<-sum_score[-ind_m]
-      score_matrix_m<-score_matrix[ind_m,]
-      score_matrix_f<-score_matrix[-ind_m,]
-
-      DifPath_g1<-paste0(MainPath, "/UploadFiles/", Skill, "/dif/gender/") # in upload file
-      if (file.exists(DifPath_g1)==F)
-      {
-        if (file.exists(paste0(MainPath, "/UploadFiles/", Skill, "/dif/"))==F)
-        {
-          dir.create(paste0(MainPath, "/UploadFiles/", Skill, "/dif/"))
-          dir.create(DifPath_g1)
-        } else dir.create(DifPath_g1)
-      }
-
-      den_m<-density(sum_score_m,kernel = "gaussian", bw="bcv")
-      den_f<-density(sum_score_f,kernel = "gaussian", bw="bcv")
-      for (j in 1:ItemNo)
-      {
-        jpeg(paste0(DifPath_g1,colnames(response)[j],".jpg"))
-        fit<-locpoly(sum_score_f, score_matrix_f[,j], drv = 0L, degree=1, kernel = "normal",
-                     bandwidth=bw, gridsize = 51L, bwdisc = 51,
-                     range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-        plot(fit$x,fit$y,type="l", ylim=c(0,1), #main=paste0("Gender DIF for ",colnames(response)[j]),
-             xlim=range(sum_score), xlab="Total Correct",ylab="Probability",lwd=2)
-
-        fit<-locpoly(sum_score_m, score_matrix_m[,j], drv = 0L, degree=1, kernel = "normal",
-                     bandwidth=bw, gridsize = 51L, bwdisc = 51,
-                     range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-        lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red",lwd=2)
-
-        #legend("topleft", legend=c("Focal Group (F)", "Reference Group (M)"),
-        #       lty=c(1,2), col=c("black", "red"),bty="n")
-        polygon(x=c(den_m$x,rev(den_m$x)),y=c(den_m$y*length(ind_m)*20/PerNo,rep(0,length(den_m$x))),
-                col=red,border=NA, xlim=range(sum_score))
-        polygon(x=c(den_f$x,rev(den_f$x)),y=c(den_f$y*(PerNo-length(ind_m))*20/PerNo,rep(0,length(den_f$x))),
-                col=grey,border=NA, xlim=range(sum_score))
-
-        dev.off()
-      }
-
-      DifPath_g2<-paste0(MainPath, "/", Skill, "/DIF/gender/") # in Reading or Listening file
-      if (file.exists(DifPath_g2)==F)
-      {
-        if (file.exists(paste0(MainPath, "/", Skill, "/DIF/"))==F)
-        {
-          if (file.exists(paste0(MainPath, "/",Skill))==F)
-          {
-            dir.create(paste0(MainPath,"/", Skill,"/"))
-            dir.create(paste0(MainPath, "/", Skill, "/DIF/"))
-            dir.create(DifPath_g2)
-          } else {
-            dir.create(paste0(MainPath, "/", Skill, "/DIF/"))
-            dir.create(DifPath_g2)
-          }
-        } else dir.create(DifPath_g2)
-      }
-
-      for (j in 1:ItemNo)
-      {
-        jpeg(paste0(DifPath_g2,colnames(response)[j],".jpg"))
-        fit<-locpoly(sum_score_f, score_matrix_f[,j], drv = 0L, degree=1, kernel = "normal",
-                     bandwidth=bw, gridsize = 51L, bwdisc = 51,
-                     range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-        plot(fit$x,fit$y,type="l", ylim=c(0,1), #main=paste0("Gender DIF for ",colnames(response)[j]),
-             xlim=range(sum_score), xlab="Total Correct",ylab="Probability",lwd=2)
-
-        fit<-locpoly(sum_score_m, score_matrix_m[,j], drv = 0L, degree=1, kernel = "normal",
-                     bandwidth=bw, gridsize = 51L, bwdisc = 51,
-                     range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-        lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red",lwd=2)
-
-        #legend("topleft", legend=c("Focal Group (F)", "Reference Group (M)"),
-        #       lty=c(1,2), col=c("black", "red"),bty="n")
-
-        polygon(x=c(den_m$x,rev(den_m$x)),y=c(den_m$y*length(ind_m)*20/PerNo,rep(0,length(den_m$x))),
-                col=red,border=NA, xlim=range(sum_score))
-        polygon(x=c(den_f$x,rev(den_f$x)),y=c(den_f$y*(PerNo-length(ind_m))*20/PerNo,rep(0,length(den_f$x))),
-                col=grey,border=NA, xlim=range(sum_score))
-        dev.off()
-      }
-
-
-      #### heritage_t ####
-      ind_y<-which(Data$heritage_t=="Y") # index for heritage students
-      sum_score_y<-sum_score[ind_y]
-      sum_score_n<-sum_score[-ind_y]
-      score_matrix_y<-score_matrix[ind_y,]
-      score_matrix_n<-score_matrix[-ind_y,]
-
-      DifPath_h1<-paste0(MainPath, "/UploadFiles/", Skill, "/dif/heritage/")
-      if (file.exists(DifPath_h1)==F)
-      {
-        dir.create(DifPath_h1)
-      }
-
-      den_y<-density(sum_score_y,kernel = "gaussian", bw="bcv")
-      den_n<-density(sum_score_n,kernel = "gaussian", bw="bcv")
-      for (j in 1:ItemNo)
-      {
-        jpeg(paste0(DifPath_h1,colnames(response)[j],".jpg"))
-        fit<-locpoly(sum_score_y, score_matrix_y[,j], drv = 0L, degree=1, kernel = "normal",
-                     bandwidth=bw, gridsize = 51L, bwdisc = 51,
-                     range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-        plot(fit$x,fit$y,type="l", ylim=c(0,1), #main=paste0("Heritage DIF for ", colnames(response)[j]),
-             xlim=range(sum_score), xlab="Total Correct",ylab="Probability",lwd=2)
-
-        fit<-locpoly(sum_score_n, score_matrix_n[,j], drv = 0L, degree=1, kernel = "normal",
-                     bandwidth=bw, gridsize = 51L, bwdisc = 51,
-                     range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-        lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red",lwd=2)
-
-        #legend("topleft", legend=c("Focal Group (Y)", "Reference Group (N)"),
-        #       lty=c(1,2), col=c("black", "red"),bty="n")
-
-        polygon(x=c(den_y$x,rev(den_y$x)),y=c(den_y$y*length(ind_y)*20/PerNo,rep(0,length(den_y$x))),
-                col=red,border=NA, xlim=range(sum_score))
-        polygon(x=c(den_n$x,rev(den_n$x)),y=c(den_n$y*(PerNo-length(ind_y))*20/PerNo,rep(0,length(den_n$x))),
-                col=grey,border=NA, xlim=range(sum_score))
-        dev.off()
-      }
-
-      DifPath_h2<-paste0(MainPath, "/", Skill, "/DIF/heritage_t/") # in Reading or Listening file
-      if (file.exists(DifPath_h2)==F)
-      {
-        if (file.exists(paste0(MainPath, "/", Skill, "/DIF/"))==F)
-        {
-          if (file.exists(paste0(MainPath, "/", Skill))==F)
-          {
-            dir.create(paste0(MainPath,"/", Skill,"/"))
-            dir.create(paste0(MainPath, "/", Skill, "/DIF/"))
-            dir.create(DifPath_h2)
-          } else {
-            dir.create(paste0(MainPath, "/", Skill, "/DIF/"))
-            dir.create(DifPath_h2)
-          }
-        } else dir.create(DifPath_h2)
-      }
-
-      for (j in 1:ItemNo)
-      {
-        jpeg(paste0(DifPath_h2,colnames(response)[j],".jpg"))
-        fit<-locpoly(sum_score_y, score_matrix_y[,j], drv = 0L, degree=1, kernel = "normal",
-                     bandwidth=bw, gridsize = 51L, bwdisc = 51,
-                     range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-        plot(fit$x,fit$y,type="l", ylim=c(0,1), #main=paste0("Heritage DIF for ",colnames(response)[j]),
-             xlim=range(sum_score), xlab="Total Correct",ylab="Probability",lwd=2)
-
-        fit<-locpoly(sum_score_n, score_matrix_n[,j], drv = 0L, degree=1, kernel = "normal",
-                     bandwidth=bw, gridsize = 51L, bwdisc = 51,
-                     range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
-        lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red",lwd=2)
-
-        #legend("topleft", legend=c("Focal Group (Y)", "Reference Group (N)"),
-        #       lty=c(1,2), col=c("black", "red"),bty="n")
-
-        polygon(x=c(den_y$x,rev(den_y$x)),y=c(den_y$y*length(ind_y)*20/PerNo,rep(0,length(den_y$x))),
-                col=red,border=NA, xlim=range(sum_score))
-        polygon(x=c(den_n$x,rev(den_n$x)),y=c(den_n$y*(PerNo-length(ind_y))*20/PerNo,rep(0,length(den_n$x))),
-                col=grey,border=NA, xlim=range(sum_score))
-        dev.off()
-      }
-
-
-
-      #### DIF Detection table ####
-
-      
-      # DIF for gender
-      mh_g<-difMH(Data=score_withna,group=Data$gender,focal.name = "F",correct=F)
-
-      chisq_g<-mh_g$MH
-      pvalue_g<-1-pchisq(chisq_g,df=1)
-      #n<-
-      effectsize_g<--2.35*log(mh_g$alphaMH)
-      upper_g<-effectsize_g+1.96*2.35*sqrt(mh_g$varLambda)
-      lower_g<-effectsize_g-1.96*2.35*sqrt(mh_g$varLambda)
-      etsclass_g<-rep("B",ItemNo)
-      for (j in 1:ItemNo)
-      {
-        if (pvalue_g[j]=="NaN")
-        {
-          etsclass_g[j]<-"NaN"
-        } else {
-          if (pvalue_g[j]>0.05 | abs(effectsize_g[j])<1)
-          {
-            etsclass_g[j]<-"A"
-          } else {
-            if (pvalue_g[j]<0.05 & abs(effectsize_g[j])>1.5)
-            {
-              etsclass_g[j]<-"C"
-            }
-          }
-        }
-      }
-      ind_plus<-which((etsclass_g=="B" | etsclass_g=="C") & effectsize_g>0)
-      etsclass_g[ind_plus]<-paste0(etsclass_g[ind_plus],"+")
-      dif_full_g<-cbind(name,chisq_g,pvalue_g,effectsize_g,upper_g,lower_g,etsclass_g)
-      write.csv(dif_full_g, paste0(DifPath_g2,Skill,"_DIF_gender.csv"),row.names<-F)
-
-      # DIF for heritage
-      mh_h<-difMH(Data=score_withna,group=Data$heritage_t,focal.name = "Y",correct=F)
-      chisq_h<-mh_h$MH
-      pvalue_h<-1-pchisq(chisq_h,df=1)
-      #n<-
-      effectsize_h<--2.35*log(mh_h$alphaMH)
-      upper_h<-effectsize_h+1.96*2.35*sqrt(mh_h$varLambda)
-      lower_h<-effectsize_h-1.96*2.35*sqrt(mh_h$varLambda)
-      etsclass_h<-rep("B",ItemNo)
-      for (j in 1:ItemNo)
-      {
-        if (pvalue_h[j]=="NaN")
-        {
-          etsclass_h[j]<-"NaN"
-        } else {
-          if (pvalue_h[j]>0.05 | abs(effectsize_h[j])<1)
-          {
-            etsclass_h[j]<-"A"
-          } else {
-            if (pvalue_h[j]<0.05 & abs(effectsize_h[j])>1.5)
-            {
-              etsclass_h[j]<-"C"
-            }
-          }
-        }
-      }
-      ind_plus<-which((etsclass_h=="B" | etsclass_h=="C") & effectsize_h>0)
-      etsclass_h[ind_plus]<-paste0(etsclass_h[ind_plus],"+")
-      dif_full_h<-cbind(name,chisq_h,pvalue_h,effectsize_h,upper_h,lower_h,etsclass_h)
-      write.csv(dif_full_h, paste0(DifPath_h2,Skill,"_DIF_heritage.csv"),row.names=F)
-
-      # create DIF csv file #
-      item_id<-rep(name, each=2)
-      collection_id<-rep(TestName, 2*ItemNo)
-      Type<-rep(c("gender","heritage"),length=2*ItemNo)
-      Value<-Group_1_Value<-Group_2_Value<-rep(NULL, 2*ItemNo)
-      for (j in 1:ItemNo)
-      {
-        Value[2*j-1]<-etsclass_g[j]
-        Value[2*j]<-etsclass_h[j]
-
-        Group_1_Value[2*j-1]<-sum(1*(Data$gender[is.na(score_withna[,j])==F]=="F"))
-        Group_1_Value[2*j]<-sum(1*(Data$heritage_t[is.na(score_withna[,j])==F]=="Y"))
-        Group_2_Value[2*j-1]<-sum(1*(Data$gender[is.na(score_withna[,j])==F]=="M"))
-        Group_2_Value[2*j]<-sum(1*(Data$heritage_t[is.na(score_withna[,j])==F]=="N"))
-      }
-      Group_1_Label<-rep(c("female","heritage"))
-      Group_2_Label<-rep(c("male","non-heritage"))
-      dif_csv<-cbind(item_id, collection_id, Type, Value, Group_1_Label, Group_1_Value, Group_2_Label, Group_2_Value)
-      CsvPath<-paste0(MainPath,"/UploadFiles/",Skill,"/csv/")
-      if (file.exists(CsvPath)==F)
-      {
-        dir.create(CsvPath)
-      }
-      write.csv(dif_csv, paste0(CsvPath, "diffs.csv"),row.names = F)
-
-    }
-
+    
   #### CTT analysis ####
   difficulty<-prop1<-colSums(score_matrix)/PerNo
   stdev<-stdev1<-apply(score_matrix,2,sd)
@@ -460,9 +198,15 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
   irt_full<-cbind(name,model,ncat,group,extreme,bparam,se,wms,stdwms,ums,stdums)
   IrtPath<-paste0(MainPath, "/", Skill, "/IRT/") # in Reading or Listening file
   if (file.exists(IrtPath)==F) 
+  {
+    if (file.exists(paste0(MainPath,"/",Skill,"/"))==F)
     {
-    dir.create(IrtPath)
+      dir.create(paste0(MainPath,"/",Skill,"/"))
+      dir.create(IrtPath)
+    } else {
+      dir.create(IrtPath)
     }
+  }
   write.csv(irt_full,paste0(IrtPath,Skill,"_IRT_Param.csv"),row.names = F)
 
   # save to Uploads/csv file
@@ -477,7 +221,271 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
   colnames(irt_csv)<-c("item_id","collection_id","Sample_Size","Response_Rate","IRT_Infit","IRT_Outfit","IRT_Model",
                        "IRT_param","IRT_Standard_Error")
   write.csv(irt_csv,paste0(CsvPath,"items.csv"), row.names=F)
-
+  
+  if (DIF)
+  {
+    #### DIF Detection Figures ####
+    #### gender ####
+    ind_m<-which(Data$gender=="M") # index for male
+    sum_score_m<-sum_score[ind_m]
+    sum_score_f<-sum_score[-ind_m]
+    score_matrix_m<-score_matrix[ind_m,]
+    score_matrix_f<-score_matrix[-ind_m,]
+    
+    DifPath_g1<-paste0(MainPath, "/UploadFiles/", Skill, "/dif/gender/") # in upload file
+    if (file.exists(DifPath_g1)==F)
+    {
+      if (file.exists(paste0(MainPath, "/UploadFiles/", Skill, "/dif/"))==F)
+      {
+        dir.create(paste0(MainPath, "/UploadFiles/", Skill, "/dif/"))
+        dir.create(DifPath_g1)
+      } else dir.create(DifPath_g1)
+    }
+    
+    den_m<-density(sum_score_m,kernel = "gaussian", bw="bcv")
+    den_f<-density(sum_score_f,kernel = "gaussian", bw="bcv")
+    for (j in 1:ItemNo)
+    {
+      jpeg(paste0(DifPath_g1,colnames(response)[j],".jpg"))
+      fit<-locpoly(sum_score_f, score_matrix_f[,j], drv = 0L, degree=1, kernel = "normal",
+                   bandwidth=bw, gridsize = 51L, bwdisc = 51,
+                   range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
+      plot(fit$x,fit$y,type="l", ylim=c(0,1), #main=paste0("Gender DIF for ",colnames(response)[j]),
+           xlim=range(sum_score), xlab="Total Correct",ylab="Probability",lwd=2)
+      
+      fit<-locpoly(sum_score_m, score_matrix_m[,j], drv = 0L, degree=1, kernel = "normal",
+                   bandwidth=bw, gridsize = 51L, bwdisc = 51,
+                   range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
+      lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red",lwd=2)
+      
+      #legend("topleft", legend=c("Focal Group (F)", "Reference Group (M)"),
+      #       lty=c(1,2), col=c("black", "red"),bty="n")
+      polygon(x=c(den_m$x,rev(den_m$x)),y=c(den_m$y*length(ind_m)*20/PerNo,rep(0,length(den_m$x))),
+              col=red,border=NA, xlim=range(sum_score))
+      polygon(x=c(den_f$x,rev(den_f$x)),y=c(den_f$y*(PerNo-length(ind_m))*20/PerNo,rep(0,length(den_f$x))),
+              col=grey,border=NA, xlim=range(sum_score))
+      
+      dev.off()
+    }
+    
+    DifPath_g2<-paste0(MainPath, "/", Skill, "/DIF/gender/") # in Reading or Listening file
+    if (file.exists(DifPath_g2)==F)
+    {
+      if (file.exists(paste0(MainPath, "/", Skill, "/DIF/"))==F)
+      {
+        if (file.exists(paste0(MainPath, "/",Skill))==F)
+        {
+          dir.create(paste0(MainPath, "/", Skill, "/DIF/"))
+          dir.create(DifPath_g2)
+        } else {
+          dir.create(paste0(MainPath, "/", Skill, "/DIF/"))
+          dir.create(DifPath_g2)
+        }
+      } else dir.create(DifPath_g2)
+    }
+    
+    for (j in 1:ItemNo)
+    {
+      jpeg(paste0(DifPath_g2,colnames(response)[j],".jpg"))
+      fit<-locpoly(sum_score_f, score_matrix_f[,j], drv = 0L, degree=1, kernel = "normal",
+                   bandwidth=bw, gridsize = 51L, bwdisc = 51,
+                   range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
+      plot(fit$x,fit$y,type="l", ylim=c(0,1), #main=paste0("Gender DIF for ",colnames(response)[j]),
+           xlim=range(sum_score), xlab="Total Correct",ylab="Probability",lwd=2)
+      
+      fit<-locpoly(sum_score_m, score_matrix_m[,j], drv = 0L, degree=1, kernel = "normal",
+                   bandwidth=bw, gridsize = 51L, bwdisc = 51,
+                   range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
+      lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red",lwd=2)
+      
+      #legend("topleft", legend=c("Focal Group (F)", "Reference Group (M)"),
+      #       lty=c(1,2), col=c("black", "red"),bty="n")
+      
+      polygon(x=c(den_m$x,rev(den_m$x)),y=c(den_m$y*length(ind_m)*20/PerNo,rep(0,length(den_m$x))),
+              col=red,border=NA, xlim=range(sum_score))
+      polygon(x=c(den_f$x,rev(den_f$x)),y=c(den_f$y*(PerNo-length(ind_m))*20/PerNo,rep(0,length(den_f$x))),
+              col=grey,border=NA, xlim=range(sum_score))
+      dev.off()
+    }
+    
+    
+    #### heritage_t ####
+    ind_y<-which(Data$heritage_t=="Y") # index for heritage students
+    sum_score_y<-sum_score[ind_y]
+    sum_score_n<-sum_score[-ind_y]
+    score_matrix_y<-score_matrix[ind_y,]
+    score_matrix_n<-score_matrix[-ind_y,]
+    
+    DifPath_h1<-paste0(MainPath, "/UploadFiles/", Skill, "/dif/heritage/")
+    if (file.exists(DifPath_h1)==F)
+    {
+      dir.create(DifPath_h1)
+    }
+    
+    den_y<-density(sum_score_y,kernel = "gaussian", bw="bcv")
+    den_n<-density(sum_score_n,kernel = "gaussian", bw="bcv")
+    for (j in 1:ItemNo)
+    {
+      jpeg(paste0(DifPath_h1,colnames(response)[j],".jpg"))
+      fit<-locpoly(sum_score_y, score_matrix_y[,j], drv = 0L, degree=1, kernel = "normal",
+                   bandwidth=bw, gridsize = 51L, bwdisc = 51,
+                   range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
+      plot(fit$x,fit$y,type="l", ylim=c(0,1), #main=paste0("Heritage DIF for ", colnames(response)[j]),
+           xlim=range(sum_score), xlab="Total Correct",ylab="Probability",lwd=2)
+      
+      fit<-locpoly(sum_score_n, score_matrix_n[,j], drv = 0L, degree=1, kernel = "normal",
+                   bandwidth=bw, gridsize = 51L, bwdisc = 51,
+                   range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
+      lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red",lwd=2)
+      
+      #legend("topleft", legend=c("Focal Group (Y)", "Reference Group (N)"),
+      #       lty=c(1,2), col=c("black", "red"),bty="n")
+      
+      polygon(x=c(den_y$x,rev(den_y$x)),y=c(den_y$y*length(ind_y)*20/PerNo,rep(0,length(den_y$x))),
+              col=red,border=NA, xlim=range(sum_score))
+      polygon(x=c(den_n$x,rev(den_n$x)),y=c(den_n$y*(PerNo-length(ind_y))*20/PerNo,rep(0,length(den_n$x))),
+              col=grey,border=NA, xlim=range(sum_score))
+      dev.off()
+    }
+    
+    DifPath_h2<-paste0(MainPath, "/", Skill, "/DIF/heritage_t/") # in Reading or Listening file
+    if (file.exists(DifPath_h2)==F)
+    {
+      if (file.exists(paste0(MainPath, "/", Skill, "/DIF/"))==F)
+      {
+        if (file.exists(paste0(MainPath, "/", Skill))==F)
+        {
+          dir.create(paste0(MainPath,"/", Skill,"/"))
+          dir.create(paste0(MainPath, "/", Skill, "/DIF/"))
+          dir.create(DifPath_h2)
+        } else {
+          dir.create(paste0(MainPath, "/", Skill, "/DIF/"))
+          dir.create(DifPath_h2)
+        }
+      } else dir.create(DifPath_h2)
+    }
+    
+    for (j in 1:ItemNo)
+    {
+      jpeg(paste0(DifPath_h2,colnames(response)[j],".jpg"))
+      fit<-locpoly(sum_score_y, score_matrix_y[,j], drv = 0L, degree=1, kernel = "normal",
+                   bandwidth=bw, gridsize = 51L, bwdisc = 51,
+                   range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
+      plot(fit$x,fit$y,type="l", ylim=c(0,1), #main=paste0("Heritage DIF for ",colnames(response)[j]),
+           xlim=range(sum_score), xlab="Total Correct",ylab="Probability",lwd=2)
+      
+      fit<-locpoly(sum_score_n, score_matrix_n[,j], drv = 0L, degree=1, kernel = "normal",
+                   bandwidth=bw, gridsize = 51L, bwdisc = 51,
+                   range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
+      lines(fit$x,fit$y,type="l", ylim=c(0,1),xlim=range(sum_score),lty=2,col="red",lwd=2)
+      
+      #legend("topleft", legend=c("Focal Group (Y)", "Reference Group (N)"),
+      #       lty=c(1,2), col=c("black", "red"),bty="n")
+      
+      polygon(x=c(den_y$x,rev(den_y$x)),y=c(den_y$y*length(ind_y)*20/PerNo,rep(0,length(den_y$x))),
+              col=red,border=NA, xlim=range(sum_score))
+      polygon(x=c(den_n$x,rev(den_n$x)),y=c(den_n$y*(PerNo-length(ind_y))*20/PerNo,rep(0,length(den_n$x))),
+              col=grey,border=NA, xlim=range(sum_score))
+      dev.off()
+    }
+    
+    
+    
+    #### DIF Detection table ####
+    
+    
+    # DIF for gender
+    mh_g<-difMH(Data=score_withna,group=Data$gender,focal.name = "F",correct=F)
+    
+    chisq_g<-mh_g$MH
+    pvalue_g<-1-pchisq(chisq_g,df=1)
+    #n<-
+    effectsize_g<--2.35*log(mh_g$alphaMH)
+    upper_g<-effectsize_g+1.96*2.35*sqrt(mh_g$varLambda)
+    lower_g<-effectsize_g-1.96*2.35*sqrt(mh_g$varLambda)
+    etsclass_g<-rep("B",ItemNo)
+    for (j in 1:ItemNo)
+    {
+      if (pvalue_g[j]=="NaN")
+      {
+        etsclass_g[j]<-"NaN"
+      } else {
+        if (pvalue_g[j]>0.05 | abs(effectsize_g[j])<1)
+        {
+          etsclass_g[j]<-"A"
+        } else {
+          if (pvalue_g[j]<0.05 & abs(effectsize_g[j])>1.5)
+          {
+            etsclass_g[j]<-"C"
+          }
+        }
+      }
+    }
+    ind_plus<-which((etsclass_g=="B" | etsclass_g=="C") & effectsize_g>0)
+    etsclass_g[ind_plus]<-paste0(etsclass_g[ind_plus],"+")
+    dif_full_g<-cbind(name,chisq_g,pvalue_g,effectsize_g,upper_g,lower_g,etsclass_g)
+    write.csv(dif_full_g, paste0(DifPath_g2,Skill,"_DIF_gender.csv"),row.names<-F)
+    
+    # DIF for heritage
+    mh_h<-difMH(Data=score_withna,group=Data$heritage_t,focal.name = "Y",correct=F)
+    chisq_h<-mh_h$MH
+    pvalue_h<-1-pchisq(chisq_h,df=1)
+    #n<-
+    effectsize_h<--2.35*log(mh_h$alphaMH)
+    upper_h<-effectsize_h+1.96*2.35*sqrt(mh_h$varLambda)
+    lower_h<-effectsize_h-1.96*2.35*sqrt(mh_h$varLambda)
+    etsclass_h<-rep("B",ItemNo)
+    for (j in 1:ItemNo)
+    {
+      if (pvalue_h[j]=="NaN")
+      {
+        etsclass_h[j]<-"NaN"
+      } else {
+        if (pvalue_h[j]>0.05 | abs(effectsize_h[j])<1)
+        {
+          etsclass_h[j]<-"A"
+        } else {
+          if (pvalue_h[j]<0.05 & abs(effectsize_h[j])>1.5)
+          {
+            etsclass_h[j]<-"C"
+          }
+        }
+      }
+    }
+    ind_plus<-which((etsclass_h=="B" | etsclass_h=="C") & effectsize_h>0)
+    etsclass_h[ind_plus]<-paste0(etsclass_h[ind_plus],"+")
+    dif_full_h<-cbind(name,chisq_h,pvalue_h,effectsize_h,upper_h,lower_h,etsclass_h)
+    write.csv(dif_full_h, paste0(DifPath_h2,Skill,"_DIF_heritage.csv"),row.names=F)
+    
+    # create DIF csv file #
+    item_id<-rep(name, each=2)
+    collection_id<-rep(TestName, 2*ItemNo)
+    Type<-rep(c("gender","heritage"),length=2*ItemNo)
+    Value<-Group_1_Value<-Group_2_Value<-rep(NULL, 2*ItemNo)
+    for (j in 1:ItemNo)
+    {
+      Value[2*j-1]<-etsclass_g[j]
+      Value[2*j]<-etsclass_h[j]
+      
+      Group_1_Value[2*j-1]<-sum(1*(Data$gender[is.na(score_withna[,j])==F]=="F"))
+      Group_1_Value[2*j]<-sum(1*(Data$heritage_t[is.na(score_withna[,j])==F]=="Y"))
+      Group_2_Value[2*j-1]<-sum(1*(Data$gender[is.na(score_withna[,j])==F]=="M"))
+      Group_2_Value[2*j]<-sum(1*(Data$heritage_t[is.na(score_withna[,j])==F]=="N"))
+    }
+    Group_1_Label<-rep(c("female","heritage"))
+    Group_2_Label<-rep(c("male","non-heritage"))
+    dif_csv<-cbind(item_id, collection_id, Type, Value, Group_1_Label, Group_1_Value, Group_2_Label, Group_2_Value)
+    CsvPath<-paste0(MainPath,"/UploadFiles/",Skill,"/csv/")
+    if (file.exists(CsvPath)==F)
+    {
+      dir.create(CsvPath)
+    }
+    write.csv(dif_csv, paste0(CsvPath, "diffs.csv"),row.names = F)
+    
+  }
+  
+  
+  
   #result[[which(c("Reading","Listening")==Skill)]]<-
   #  list(describe<-sum_describe, DIF_gender<-dif_full_g, DIF_heritage<-dif_full_h, CTT<-ctt_txt, IRT<-irt_full)
   }
