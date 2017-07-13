@@ -45,9 +45,11 @@ Tucker_equating<-function(MainPath, XPath, YPath, XName, YName, n_demoX=6, n_dem
  for (Skill in c("Reading", "Listening"))
  {
    # create path for equating
-   EquatingPath <- file.path(MainPath,"Equating/")
-   if (file.exists(EquatingPath)==F) dir.create(file.path(EquatingPath))
-
+   EquatingPath <- paste0(MainPath,"/Equating/")
+   if (file.exists(EquatingPath)==F)
+   {
+     dir.create(file.path(EquatingPath))
+   }
    #### compute Item Stats ####
    # Read in response matrices
    X_Data <- ReadCSVFile(XPath, paste0(XName, "_", Skill))
