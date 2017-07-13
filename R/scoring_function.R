@@ -342,9 +342,11 @@ Scoring<-function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersio
     LowerBound_R<-c(0,UpperBound_R[1:n_levels]+1)
     bounds_R<-data.frame(Level, LowerBound_R, UpperBound_R)
     writeData(wb, "Scores", bounds_R, startCol = "M", startRow = 10+PerNo, rowNames = F, colNames = T)
+    mergeCells(wb, "Scores", cols=13:15, rows = 9+PerNo)
+    writeData(wb, "Scores", x=paste0("Cut Score Range (", Skill ,")"), startRow = 9+PerNo, startCol = "M", rowNames = F, colNames = F)
     addStyle(wb, "Scores", border_general, rows=c((10+PerNo):(10+n_levels+PerNo)), cols=c(13:15), gridExpand =T, stack = FALSE)
     addStyle(wb, "Scores", bold, rows=10+PerNo, cols=c(13:15), gridExpand =T, stack = FALSE)
-    addStyle(wb, "Scores", border_head, rows=10+PerNo, cols=c(13:15), gridExpand =T, stack = FALSE)
+    addStyle(wb, "Scores", border_head, rows=(9+PerNo):(10+PerNo), cols=c(13:15), gridExpand =T, stack = FALSE)
     
     z<-NULL
     p<-paste0("A",11+PerNo)
@@ -623,9 +625,11 @@ Scoring<-function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersio
     LowerBound_L<-c(0,UpperBound_L[1:n_levels]+1)
     bounds_L<-cbind(Level, LowerBound_R, UpperBound_R)
     writeData(wb, "Scores", bounds_R, startCol = "S", startRow = 10+PerNo, rowNames = F, colNames = T)
-    addStyle(wb, "Scores", border_general, rows=c((10+PerNo):(10+n_levels+PerNo)), cols=c(19:21), gridExpand =T, stack = FALSE)
+    mergeCells(wb, "Scores", cols=19:21, rows = 9+PerNo)
+    writeData(wb, "Scores", x=paste0("Cut Score Range (", Skill ,")"), startRow = 9+PerNo, startCol = "S", rowNames = F, colNames = F)
+    addStyle(wb, "Scores", border_general, rows=c((10+PerNo):(11+n_levels+PerNo)), cols=c(19:21), gridExpand =T, stack = FALSE)
     addStyle(wb, "Scores", bold, rows=10+PerNo, cols=c(19:21), gridExpand =T, stack = FALSE)
-    addStyle(wb, "Scores", border_head, rows=10+PerNo, cols=c(19:21), gridExpand =T, stack = FALSE)
+    addStyle(wb, "Scores", border_head, rows=(9+PerNo):(10+PerNo), cols=c(19:21), gridExpand =T, stack = FALSE)
     
     # function to get levels after standard setting
     z<-NULL
