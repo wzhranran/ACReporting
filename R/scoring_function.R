@@ -342,7 +342,7 @@ Scoring<-function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersio
     LowerBound_R<-c(0,UpperBound_R[1:n_levels]+1)
     bounds_R<-data.frame(Level, LowerBound_R, UpperBound_R)
     writeData(wb, "Scores", bounds_R, startCol = "M", startRow = 10+PerNo, rowNames = F, colNames = T)
-    addStyle(wb, "Scores", border_general, rows=c((10+PerNo):(12+PerNo), cols=c(13:15), gridExpand =T, stack = FALSE)
+    addStyle(wb, "Scores", border_general, rows=c((10+PerNo):(12+PerNo)), cols=c(13:15), gridExpand =T, stack = FALSE)
     addStyle(wb, "Scores", bold, rows=10+PerNo, cols=c(13:15), gridExpand =T, stack = FALSE)
     addStyle(wb, "Scores", border_head, rows=10+PerNo, cols=c(13:15), gridExpand =T, stack = FALSE)
     
