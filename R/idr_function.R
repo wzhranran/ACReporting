@@ -411,6 +411,11 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
   Biserial_Corr<-c(rbind(cor1,cor2,cor3,cor4))
   Biserial_Corr[which(Biserial_Corr=="NaN")]<-0
   ctt_csv<-cbind(option_id,item_id,collection_id,Proportion,Biserial_Corr)
+  CsvPath<-paste0(MainPath,"/UploadFiles/",Skill,"/csv/")
+  if (file.exists(CsvPath)==F)
+  {
+    dir.create(CsvPath)
+  }
   write.csv(ctt_csv, paste0(CsvPath,"Options.csv"), row.names=F)
 
   #### IRT Analysis ####
