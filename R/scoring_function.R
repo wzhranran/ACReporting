@@ -335,21 +335,22 @@ Scoring<-function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersio
     writeData(wb, "Scores", dSorted[,1:5], startCol = 1, startRow = 7, rowNames = F, colNames=T)
     writeData(wb, "Scores", cbind(dSorted[,(n_demo+1+ItemNo):(n_demo+3+ItemNo)],rep(0,PerNo),dSorted[,(ncol(dSorted)-1):ncol(dSorted)]),
               startCol = ifelse(Skill=="Reading","J","P") ,startRow = 7)
-    writeData(wb, sheet="Scores", x="Provisional Score", startCol = "L", startRow = 7, colNames = F)
+    writeData(wb, sheet="Scores", x="Provisional Score", startCol = "M", startRow = 7, colNames = F)
     # create the bounds table
     Level<-c(paste0("Sub-",ReportedLevels[1]),ReportedLevels)
     UpperBound_R<-round(seq(20,ItemNo,length=n_levels+1),digits = 0)
     LowerBound_R<-c(0,UpperBound_R[1:n_levels]+1)
     bounds_R<-data.frame(Level, LowerBound_R, UpperBound_R)
     writeData(wb, "Scores", bounds_R, startCol = "M", startRow = 10+PerNo, rowNames = F, colNames = T)
-    addStyle(wb, "Scores", border_head, rows=10+PerNo, cols=c(13:15))
+    addStyle(wb, "Scores", border_general, rows=c((10+PerNo):(12+PerNo), cols=c(13:15))
     addStyle(wb, "Scores", bold, rows=10+PerNo, cols=c(13:15))
+    addStyle(wb, "Scores", border_head, rows=10+PerNo, cols=c(13:15))
     
     z<-NULL
     p<-paste0("A",11+PerNo)
     for (k in 1:n_levels)
     {
-      z<-paste0(z,"IF(K", 8:(7+PerNo), ">C",11+PerNo+n_levels-k, ", A", 12+PerNo+n_levels-k,",")
+      z<-paste0(z,"IF(K", 8:(7+PerNo), ">O",11+PerNo+n_levels-k, ", M", 12+PerNo+n_levels-k,",")
       p<-paste0(p,")")
     }
     z1<-paste0(z,p)
@@ -622,15 +623,16 @@ Scoring<-function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersio
     LowerBound_L<-c(0,UpperBound_L[1:n_levels]+1)
     bounds_L<-cbind(Level, LowerBound_R, UpperBound_R)
     writeData(wb, "Scores", bounds_R, startCol = "S", startRow = 10+PerNo, rowNames = F, colNames = T)
-    addStyle(wb, "Scores", border_head, rows=10+PerNo, cols=c(19:21))
+    addStyle(wb, "Scores", border_general, rows=c((10+PerNo):(12+PerNo)), cols=c(19:21))
     addStyle(wb, "Scores", bold, rows=10+PerNo, cols=c(19:21))
+    addStyle(wb, "Scores", border_head, rows=10+PerNo, cols=c(19:21))
     
     # function to get levels after standard setting
     z<-NULL
     p<-paste0("F", 11+PerNo)
     for (k in 1:n_levels)
     {
-      z<-paste0(z,"IF(Q", 8:(7+PerNo), ">H",11+PerNo+n_levels-k, ", F", 12+PerNo+n_levels-k,",")
+      z<-paste0(z,"IF(Q", 8:(7+PerNo), ">U",11+PerNo+n_levels-k, ", S", 12+PerNo+n_levels-k,",")
       p<-paste0(p,")")
     }
     z1<-paste0(z,p)
