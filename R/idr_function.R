@@ -72,6 +72,7 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
     for (j in 1:ItemNo)
     {
       jpeg(paste0(KeycheckPath,colnames(response)[j],".jpg"), width = 450, height = 400)
+      par(mar=c(8,7,4,2))
       fit<-locpoly(sum_score, score_matrix[,j], drv = 0L, degree=1, kernel = "normal",
                    bandwidth=bw, gridsize = 51L, bwdisc = 51,
                    range.x<-range(sum_score)+c(-5,5), binned = FALSE, truncate = TRUE)
