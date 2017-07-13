@@ -100,9 +100,8 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
       dev.off()
     }
 
-    #### Test Characteristic Curve ####
-    # plot(fit$x,colSums(exp_score),type="l", main="Test Characteristic Curve",xlim=range(sum_score),
-    #      xlab="Total Correct",ylab="True Score")
+    score_withna<-score_matrix
+    score_withna[which(response=="NA")]<-NA
     if (DIF)
     {
       #### DIF Detection Figures ####
@@ -275,8 +274,7 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
 
       #### DIF Detection table ####
 
-      score_withna<-score_matrix
-      score_withna[which(response=="NA")]<-NA
+      
       # DIF for gender
       mh_g<-difMH(Data=score_withna,group=Data$gender,focal.name = "F",correct=F)
 
