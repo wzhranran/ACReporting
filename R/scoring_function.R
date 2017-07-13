@@ -344,7 +344,7 @@ Scoring<-function(MainPath, Language, TestName, AdminDate, ProfScale, ProfVersio
     writeData(wb, "Scores", bounds_R, startCol = "M", startRow = 10+PerNo, rowNames = F, colNames = T)
     mergeCells(wb, "Scores", cols=13:15, rows = 9+PerNo)
     writeData(wb, "Scores", x=paste0("Cut Score Range (", Skill ,")"), startRow = 9+PerNo, startCol = "M", rowNames = F, colNames = F)
-    addStyle(wb, "Scores", border_general, rows=c((10+PerNo):(10+n_levels+PerNo)), cols=c(13:15), gridExpand =T, stack = FALSE)
+    addStyle(wb, "Scores", border_general, rows=c((10+PerNo):(11+n_levels+PerNo)), cols=c(13:15), gridExpand =T, stack = FALSE)
     addStyle(wb, "Scores", bold, rows=10+PerNo, cols=c(13:15), gridExpand =T, stack = FALSE)
     addStyle(wb, "Scores", border_head, rows=(9+PerNo):(10+PerNo), cols=c(13:15), gridExpand =T, stack = FALSE)
     
