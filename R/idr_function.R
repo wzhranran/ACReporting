@@ -156,8 +156,6 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
   write.csv(ctt_csv, paste0(CsvPath,"Options.csv"), row.names=F)
 
   #### IRT Analysis ####
-
-
   m<-RM(score_withna)
   p<-person.parameter(m)
   fit<-itemfit(p)
@@ -166,8 +164,8 @@ IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
   {
     if (prod(1*(na.omit(score_withna[,j])==1))==1)
     {
-      bparam[j]<--4.20
-      se[j]<-1.8345295
+      bparam[j]<--4.40
+      se[j]<-1.843
       wms[j]<-stdwms[j]<-ums[j]<-stdums[j]<-NA
     } else {
       if (prod(1*(na.omit(score_withna[,j])==0))==1)
