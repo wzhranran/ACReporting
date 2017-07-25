@@ -7,9 +7,11 @@
 Tucker_equating(MainPath, XPath, YPath, XName, YName, n_demoX = 6,
   n_demoY = 6, DNS_X_r = NULL, DNS_X_l = NULL, DNS_Y_r = NULL,
   DNS_Y_l = NULL, keychange_X_r = NULL, keychange_X_l = NULL,
-  keychange_Y_r = NULL, keychange_Y_l = NULL, equate_coef = list(c_2015 =
-  c(-2.282018, 1.052596), c_2014 = c(-1.848358, 1.014028), c_2013 = c(2.308507,
-  0.9523797), c_2012 = c(3.089623, 0.9053153)))
+  keychange_Y_r = NULL, keychange_Y_l = NULL, equate_coef_l = list(c_2015
+  = c(-2.282018, 1.052596), c_2014 = c(-1.848358, 1.014028), c_2013 =
+  c(2.308507, 0.9523797), c_2012 = c(3.089623, 0.9053153)),
+  equate_coef_r = list(c_2015 = c(-2.978765, 1.013981), c_2014 = c(5.188769,
+  0.8741792), c_2013 = c(1.171173, 0.9723494), c_2012 = c(-3.480369, 1.05726)))
 }
 \arguments{
 \item{MainPath}{The folder where the response files are stored in}
@@ -37,8 +39,11 @@ The first element is the item index, the rest are the keys.}
 
 \item{keychange_Y_l}{List of key change for Y listening test.}
 
-\item{equate_coef}{List of Tucker linear equating coefficience. First element is intercept, second is slope.
+\item{equate_coef_l}{List of Tucker linear equating coefficience for Listening.
+First element is intercept, second is slope.
 e.g. c_2015 equates 2016 test score to 2015. When using this function, just fill in proper equating coefficience.}
+
+\item{equate_coef_r}{List of Tucker linear equating coefficience for Reading.}
 
 \item{Xpath}{Path of the old response file is stored in}
 
@@ -57,8 +62,12 @@ Plots of liking item score and total score distribution are also developed.
 Tucker_equating(MainPath, XPath, YPath, XName, YName, n_demoX=6, n_demoY=6,
  DNS_X_r=NULL, DNS_X_l=c(1,5), DNS_Y_r=NULL, DNS_Y_l=NULL,
  keychange_X_r=list(c(2,1,4),c(13, 2)), keychange_X_l=NULL, keychange_Y_r=NULL, kechange_Y_l=NULL,
- equate_coef=list(c_2015=c(-2.282018,1.052596),
+ equate_coef_l=list(c_2015=c(-2.282018,1.052596),
                 c_2014=c(-1.848358,1.014028),
                 c_2013=c(2.308507,0.9523797),
-                c_2012=c(3.089623,0.9053153)))
+                c_2012=c(3.089623,0.9053153)),
+ equate_coef_r=list(c_2015=c(-2.978765,1.013981),
+                c_2014=c(5.188769,0.8741792),
+                c_2013=c(1.171173,0.9723494),
+                c_2012=c(-3.480369,1.05726)))
 }
