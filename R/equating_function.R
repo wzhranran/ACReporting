@@ -18,27 +18,37 @@
 #' @param keychange_X_l List of key change for X listening test.
 #' @param keychange_Y_r List of key change for Y reading test.
 #' @param keychange_Y_l List of key change for Y listening test.
-#' @param equate_coef List of Tucker linear equating coefficience. First element is intercept, second is slope.
+#' @param equate_coef_l List of Tucker linear equating coefficience for Listening.
+#' First element is intercept, second is slope.
 #' e.g. c_2015 equates 2016 test score to 2015. When using this function, just fill in proper equating coefficience.
+#' @param equate_coef_r List of Tucker linear equating coefficience for Reading.
 #' @return Stats for both forms of test and the equating table.
 #' @export
 #' @examples
 #' Tucker_equating(MainPath, XPath, YPath, XName, YName, n_demoX=6, n_demoY=6,
 #'  DNS_X_r=NULL, DNS_X_l=c(1,5), DNS_Y_r=NULL, DNS_Y_l=NULL,
 #'  keychange_X_r=list(c(2,1,4),c(13, 2)), keychange_X_l=NULL, keychange_Y_r=NULL, kechange_Y_l=NULL,
-#'  equate_coef=list(c_2015=c(-2.282018,1.052596),
+#'  equate_coef_l=list(c_2015=c(-2.282018,1.052596),
 #'                 c_2014=c(-1.848358,1.014028),
 #'                 c_2013=c(2.308507,0.9523797),
-#'                 c_2012=c(3.089623,0.9053153)))
+#'                 c_2012=c(3.089623,0.9053153)),
+#'  equate_coef_r=list(c_2015=c(-2.978765,1.013981),
+#'                 c_2014=c(5.188769,0.8741792),
+#'                 c_2013=c(1.171173,0.9723494),
+#'                 c_2012=c(-3.480369,1.05726)))
 
 
 Tucker_equating<-function(MainPath, XPath, YPath, XName, YName, n_demoX=6, n_demoY=6,
                           DNS_X_r=NULL, DNS_X_l=NULL, DNS_Y_r=NULL, DNS_Y_l=NULL,
                           keychange_X_r=NULL, keychange_X_l=NULL, keychange_Y_r=NULL, keychange_Y_l=NULL,
-                          equate_coef=list(c_2015=c(-2.282018,1.052596),
+                          equate_coef_l=list(c_2015=c(-2.282018,1.052596),
                                            c_2014=c(-1.848358,1.014028),
                                            c_2013=c(2.308507,0.9523797),
-                                           c_2012=c(3.089623,0.9053153)))
+                                           c_2012=c(3.089623,0.9053153)),
+                          equate_coef_r=list(c_2015=c(-2.978765,1.013981),
+                                             c_2014=c(5.188769,0.8741792),
+                                             c_2013=c(1.171173,0.9723494),
+                                             c_2012=c(-3.480369,1.05726)))
 {
  library(equate)
  library(psych)
@@ -293,6 +303,12 @@ Tucker_equating<-function(MainPath, XPath, YPath, XName, YName, n_demoX=6, n_dem
    cat("    Slope: ", Tucker_slope,"\n")
 
    # Equating table
+   if (Skill=="Listening")
+   {
+     equate_coef<-equate_coef_l
+   } else {
+     equate_coef<-equate_coef_r
+   }
    equating_table<-matrix(, ncol=3+length(equate_coef), nrow=Nitems_y-length(DNS_Y)+1)
    equating_table[,1]<-seq(from = 0, to = Nitems_y-length(DNS_Y), by = 1) # Form Y score
    equating_table[,2]<-Tucker_icpt + Tucker_slope*equating_table[,1] # Form X score
