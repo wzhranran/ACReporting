@@ -11,7 +11,7 @@
 #' @return Descriptive summary, dif results, CTT results and IRT results
 #' @examples
 #' IDR(MainPath, TestName, n_demo=6)
-#' more content
+#' more content.
 
 IDR<-function(MainPath, TestName, n_demo=6, DIF=F)
 {
