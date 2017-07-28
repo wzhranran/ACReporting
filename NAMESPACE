@@ -3,5 +3,3 @@
 export(ReadCSVFile)
 export(Tucker_equating)
 export(ctt_Score)
-export(Scoring)
-export(IDR)
